@@ -1,0 +1,97 @@
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Login.css';
+
+function Login() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navi = useNavigate();
+
+  const Sub = (field, value) => {
+    if (field === 'email') {
+      setEmail(value);
+    }
+    if (field === 'password') {
+      setPassword(value);
+    }
+  };
+
+  const handle = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await fetch('http://localhost:5000/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      localStorage.setItem('token', data);
+      navi('../');
+      
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  return (
+    <div className="container min-vh-100 d-flex align-items-center justify-content-center py-5 bg-gray-100">
+      <div className="card border-0 shadow-sm rounded-3 w-100 fade-in" style={{ maxWidth: '400px' }}>
+        <div className="card-body p-5">
+          <h2 className="text-center fw-semibold text-dark mb-4">Login</h2>
+          <form onSubmit={handle}>
+            <div className="mb-3">
+              <label htmlFor="email" className="form-label fw-medium text-dark">
+                Email
+              </label>
+              <input
+                type="email"
+                className="form-control form-control-lg transition-all duration-300 focus:ring-1 focus:ring-indigo-400"
+                id="email"
+                placeholder="Enter your email"
+                onChange={(e) => Sub('email', e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="password" className="form-label fw-medium text-dark">
+                Password
+              </label>
+              <input
+                type="password"
+                className="form-control form-control-lg transition-all duration-300 focus:ring-1 focus:ring-indigo-400"
+                id="password"
+                placeholder="Enter your password"
+                onChange={(e) => Sub('password', e.target.value)}
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className="btn btn-primary btn-lg w-100 mb-3 transition-all duration-300 hover:bg-indigo-600"
+            >
+              Login
+            </button>
+            <p className="text-center text-muted mb-0">
+              Don't have an account?{' '}
+              <a href="/signup" className="text-primary fw-medium text-decoration-none hover:underline">
+                Sign Up
+              </a>
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default Login;
