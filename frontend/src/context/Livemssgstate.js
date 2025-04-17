@@ -30,12 +30,13 @@ const LivemssgState = (props) =>{
       let auth = localStorage.getItem("token")
       setLoading(true); 
       try {
-          const response = await fetch('http://localhost:5000/mssg/getusers', {
+          const response = await fetch('https://mern-zeta-nine.vercel.app/mssg/getusers', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
               'auth-token' : auth
-            },
+            }, 
+              mode:"cors"
           });
         
           if (!response.ok) {
@@ -61,7 +62,7 @@ const LivemssgState = (props) =>{
       const a = localStorage.getItem("token1")
       let auth = localStorage.getItem("token")
         try {
-            const response = await fetch('http://localhost:5000/mssg/fetch', {
+            const response = await fetch('https://mern-zeta-nine.vercel.app/mssg/fetch', {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',
@@ -69,6 +70,7 @@ const LivemssgState = (props) =>{
                 'rec-token': a
                
               },
+                mode:"cors"
             });
           
             if (!response.ok) {
@@ -87,13 +89,14 @@ const LivemssgState = (props) =>{
       const a = localStorage.getItem("token1")
       let auth = localStorage.getItem("token")
         try {
-            const response = await fetch('http://localhost:5000/mssg/send', {
+            const response = await fetch('https://mern-zeta-nine.vercel.app/mssg/send', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
                 'send-token' : auth,
                 'rec-token': a
               },
+                mode:"cors",
               body: JSON.stringify({
                 text : value
               })
@@ -121,7 +124,7 @@ const LivemssgState = (props) =>{
       const a = localStorage.getItem("token1")
       let auth = localStorage.getItem("token")
         try {
-            const response = await fetch('http://localhost:5000/mssg/req', {
+            const response = await fetch('https://mern-zeta-nine.vercel.app/mssg/req', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -129,6 +132,7 @@ const LivemssgState = (props) =>{
                 'rec-token': a
                
               },
+                   mode:"cors"
             });
           
             if (!response.ok) {
@@ -146,12 +150,13 @@ const LivemssgState = (props) =>{
       setLoading(true); 
       let auth = localStorage.getItem("token")
         try {
-            const response = await fetch('http://localhost:5000/mssg/getreq', {
+            const response = await fetch('https://mern-zeta-nine.vercel.app/mssg/getreq', {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',
                 'auth-token' : auth 
               },
+                   mode:"cors"
             });
           
             if (!response.ok) {
@@ -174,13 +179,14 @@ const LivemssgState = (props) =>{
       let auth = localStorage.getItem("token")
       
         try {
-            const response = await fetch('http://localhost:5000/mssg/addfre', {
+            const response = await fetch('https://mern-zeta-nine.vercel.app/mssg/addfre', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
                 'send-token' : auth,
                 'rec-token': a
               },
+                mode:"cors",
               body: JSON.stringify({
                 mssg : "yes"
               })
@@ -201,12 +207,13 @@ const LivemssgState = (props) =>{
       let auth = localStorage.getItem("token")
       setLoading(true); 
         try {
-            const response = await fetch('http://localhost:5000/mssg/getfriends', {
+            const response = await fetch('https://mern-zeta-nine.vercel.app/mssg/getfriends', {
               method: 'GET',
               headers: {
                 'Content-Type': 'application/json',
                 'auth-token' : auth 
-              }
+              },
+                 mode:"cors",
             });
           
             if (!response.ok) {
