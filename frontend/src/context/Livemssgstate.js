@@ -13,17 +13,17 @@ const LivemssgState = (props) =>{
 
 
     const setSent =(index)=>{
-      console.log(index)
+     
       localStorage.setItem("token1" , sento[index])
       const a = localStorage.getItem("token1")
-      console.log(a)
+
     }
 
     const setToken = (index)=>{
-      console.log(index)
+ 
       localStorage.setItem("token1" , auth[index])
       const a = localStorage.getItem("token1")
-      console.log(a)
+     
     }
 
     const getusers = async() =>{
@@ -79,7 +79,7 @@ const LivemssgState = (props) =>{
           
             const data = await response.json();
             setMessages(data)
-            console.log(data);
+            
           } catch (error) {
             console.error('Error:', error);
           }
@@ -109,7 +109,7 @@ const LivemssgState = (props) =>{
           
             const data = await response.json();
             
-            console.log(data);
+           
           } catch (error) {
             console.error('Error:', error);
           }
@@ -140,7 +140,7 @@ const LivemssgState = (props) =>{
             }
           
             const data = await response.json();
-            console.log(data);
+        
           } catch (error) {
             console.error('Error:', error);
           }
@@ -166,7 +166,7 @@ const LivemssgState = (props) =>{
             const data = await response.json();
             setReq(data.requests)
             setSento(data.auth)
-            console.log(data);
+
           } catch (error) {
             console.error('Error:', error);
           }finally {
@@ -197,7 +197,7 @@ const LivemssgState = (props) =>{
             }
           
             const data = await response.json();
-            console.log(data);
+       
           } catch (error) {
             console.error('Error:', error);
           }
@@ -223,7 +223,7 @@ const LivemssgState = (props) =>{
             const data = await response.json();
             setUsers(data.friends)
             setAuth(data.auth)
-            console.log(data);
+         
           } catch (error) {
             console.error('Error:', error);
           }finally {
