@@ -15,12 +15,13 @@ const Livegrpstate = (props) =>{
     const create = async(namea , options) =>{
         let a = localStorage.getItem('token')
         try {
-            const response = await fetch('http://localhost:5000/upload/grp', {
+            const response = await fetch('https://mern-zeta-nine.vercel.app/upload/grp', {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
                 'auth-token' : a,
               },
+               mode:"cors",
               body: JSON.stringify({
                 name : namea,
                 users : options
@@ -43,12 +44,13 @@ const Livegrpstate = (props) =>{
     const get = async() =>{
       let a = localStorage.getItem('token')
       try {
-          const response = await fetch('http://localhost:5000/upload/grpdetail', {
+          const response = await fetch('https://mern-zeta-nine.vercel.app/upload/grpdetail', {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
               'auth-token' : a,
             },
+             mode:"cors"
           });
           
         
@@ -71,13 +73,14 @@ const Livegrpstate = (props) =>{
     let grptokan = localStorage.getItem('grptoken')
     let a = localStorage.getItem('token')
     try {
-      const response = await fetch('http://localhost:5000/upload/get', {
+      const response = await fetch('https://mern-zeta-nine.vercel.app/upload/get', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
           'send-token' : grptokan,
           'rec-token' : a
         },
+         mode:"cors",
       });
       
     
@@ -96,13 +99,14 @@ const Livegrpstate = (props) =>{
     let grptokan = localStorage.getItem('grptoken')
     let a = localStorage.getItem('token')
     try {
-      const response = await fetch('http://localhost:5000/upload/mssg', {
+      const response = await fetch('https://mern-zeta-nine.vercel.app/upload/mssg', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'send-token' : grptokan,
           'rec-token' : a
         },
+         mode:"cors",
         body: JSON.stringify({
           text : value,
           users : []
