@@ -11,6 +11,4 @@ app.use('/auth',require('./routes/auth'))
 app.use('/mssg',require('./routes/livemssg'))
 app.use('/upload' , require('./routes/upload'))
 
-app.listen(port, () => {
-  console.log(`Example app listening on port http://localhost:${port}`)
-})
+module.exports = app;
