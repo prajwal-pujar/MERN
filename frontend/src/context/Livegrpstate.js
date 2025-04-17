@@ -10,7 +10,7 @@ const Livegrpstate = (props) =>{
 
     const set = (index) =>{
       localStorage.setItem("grptoken" , auth[index])
-      console.log(index)
+     
     }
     const create = async(namea , options) =>{
         let a = localStorage.getItem('token')
@@ -35,7 +35,7 @@ const Livegrpstate = (props) =>{
           
             const data = await response.json();
            
-            console.log(data);
+          
           } catch (error) {
             console.error('Error:', error);
           }
