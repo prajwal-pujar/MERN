@@ -5,14 +5,14 @@ import LivegrpContext from '../context/LivegrpConstext'
 
 
 function Create() {
-    let {users, getusers, auth} = useContext(Livemssgcontext)
+    let {users, getusers, auth , getfriends} = useContext(Livemssgcontext)
     let {create} = useContext(LivegrpContext)
     let ff = localStorage.getItem('token')
     let [creusers, setCreusers] = useState([ff])
     let [groupName, setGroupName] = useState('')
 
     useEffect(() => {
-        getusers()
+        getfriends()
     }, [])
 
     const toggleUser = (index) => {

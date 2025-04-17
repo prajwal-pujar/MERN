@@ -5,6 +5,7 @@ import './Login.css';
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // New loading state
   const navi = useNavigate();
 
   const Sub = (field, value) => {
@@ -18,12 +19,15 @@ function Login() {
 
   const handle = async (event) => {
     event.preventDefault();
+    setIsLoading(true); // Start loading
     try {
       const response = await fetch('http://localhost:5000/auth/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+          mode: "cors",
+        // Note: 'no-cors' may cause issues with response data; consider removing if possible
         body: JSON.stringify({
           email,
           password,
@@ -37,9 +41,10 @@ function Login() {
       const data = await response.json();
       localStorage.setItem('token', data);
       navi('../');
-      
     } catch (error) {
       console.error('Error:', error);
+    } finally {
+      setIsLoading(false); // Stop loading regardless of success or failure
     }
   };
 
@@ -75,11 +80,26 @@ function Login() {
                 required
               />
             </div>
+            {isLoading && (
+              <div className="mb-3">
+                <div className="progress">
+                  <div
+                    className="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                    role="progressbar"
+                    style={{ width: '100%' }}
+                    aria-valuenow="100"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  ></div>
+                </div>
+              </div>
+            )}
             <button
               type="submit"
               className="btn btn-primary btn-lg w-100 mb-3 transition-all duration-300 hover:bg-indigo-600"
+              disabled={isLoading} // Disable button while loading
             >
-              Login
+              {isLoading ? 'Logging in...' : 'Login'}
             </button>
             <p className="text-center text-muted mb-0">
               Don't have an account?{' '}

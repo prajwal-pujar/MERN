@@ -1,30 +1,44 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Livemssgcontext from '../context/LivemssgContext';
 import { useNavigate } from "react-router-dom";
-import "./Msgfront.css"
-function Msgfront() {
-    const { users, auth, getusers, setToken ,getfriends , loading} = useContext(Livemssgcontext);
+import "./Msgfront.css";
+
+function Req() {
+    const { users, auth, getusers, setToken, sendreq ,loading} = useContext(Livemssgcontext);
+    const [message, setMessage] = useState("");
+    const [disabledIndexes, setDisabledIndexes] = useState([]);
     const navigate = useNavigate();
 
     useEffect(() => {
-        getfriends()
+        getusers();
     }, []);
 
-    const sub = (index) => {
-        setToken(index);
-        navigate("/musg");
+    const sub = async (index) => {
+        await setToken(index);
+        await sendreq();
+        setMessage("Friend request sent ✅");
+
+        setDisabledIndexes(prev => [...prev, index]);
+
+        setTimeout(() => setMessage(""), 3000);
     };
 
     return (
         <div className="container py-5">
-            <h1 className="text-center mb-5 fw-semibold text-dark animate-title">Personal Message</h1>
+            <h1 className="text-center mb-4 fw-semibold text-dark animate-title">Send Request</h1>
 
-            {loading ? (
+            {message && (
+                <div className="alert alert-success text-center" role="alert">
+                    {message}
+                </div>
+            )}
+
+{loading ? (
         <div className="text-center">
           <div className="spinner-border text-primary" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
-          <p className="text-muted mt-2">Fetching requests...</p>
+          <p className="text-muted mt-2">Fetching users...</p>
         </div>
       ) : users.length === 0 ? (
         <div className="text-center">
@@ -40,13 +54,16 @@ function Msgfront() {
                                     <div className="avatar-circle bg-primary text-white me-3">
                                         {ele.name.charAt(0).toUpperCase()}
                                     </div>
-                                    <h5 className="card-title mb-0 fw-medium text-dark"> {ele.name.charAt(0).toUpperCase() + ele.name.slice(1)}</h5>
+                                    <h5 className="card-title mb-0 fw-medium text-dark">
+                                        {ele.name.charAt(0).toUpperCase() + ele.name.slice(1)}
+                                    </h5>
                                 </div>
                                 <button 
                                     onClick={() => sub(index)} 
                                     className="btn btn-outline-primary btn-sm px-3 py-1"
+                                    disabled={disabledIndexes.includes(index)}
                                 >
-                                    Message
+                                    {disabledIndexes.includes(index) ? "Sent" : "Send"}
                                 </button>
                             </div>
                         </div>
@@ -57,4 +74,4 @@ function Msgfront() {
     );
 }
 
-export default Msgfront;
+export default Req;

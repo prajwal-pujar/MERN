@@ -11,7 +11,8 @@ import Create from './componemts/create';
 import Livegrpstate from './context/Livegrpstate';
 import Grpfrt from './componemts/grpfrt';
 import Grpmssg from './componemts/grpmssg';
-
+import Req from './componemts/Req';
+import Accreq from './componemts/Accreq';
 function App() {
 
   const isAuthenticated = () => !!localStorage.getItem("token");
@@ -33,6 +34,8 @@ function App() {
             <Route path="/crgrp" element={<ProtectedRoute><Create /></ProtectedRoute>} />
             <Route path="/grpfrt" element={<ProtectedRoute><Grpfrt /></ProtectedRoute>} />
             <Route path="/grpmssg" element={<ProtectedRoute><Grpmssg /></ProtectedRoute>} />
+            <Route path="/req" element={<ProtectedRoute><Req /></ProtectedRoute>} />
+            <Route path="/accreq" element={<ProtectedRoute><Accreq /></ProtectedRoute>} />
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />

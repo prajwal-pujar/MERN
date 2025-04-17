@@ -30,6 +30,24 @@ function Navbar() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+            <li className="nav-item">
+                <a
+                  className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
+                  aria-current="page"
+                  href="/accreq"
+                >
+                  Accept friends
+                </a>
+              </li>
+            <li className="nav-item">
+                <a
+                  className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
+                  aria-current="page"
+                  href="/req"
+                >
+                  Req friends
+                </a>
+              </li>
               <li className="nav-item">
                 <a
                   className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"

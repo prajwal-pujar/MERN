@@ -12,6 +12,7 @@ const User = require('../modules/User')
 router.post('/grp' ,fetchuser , async(req ,res)=>{
   try{
     let {name , users} = req.body
+    const creatorgrp = req.user
     let userid = []
     userid = users.map((ele)=>{
       const data = jwt.verify(ele, jwtsecreat)
@@ -19,7 +20,7 @@ router.post('/grp' ,fetchuser , async(req ,res)=>{
       return req.user
     })
     const grp = new Group({
-      name , users:userid
+      name ,creator: creatorgrp, users:userid
     })
     const data = await grp.save()
     res.json(data)
@@ -92,6 +93,29 @@ router.get('/get' , fetchmuser , async(req,res)=>{
   }
 
 })
+
+router.delete('/del', fetchmuser, async (req, res) => {
+  try {
+    const token = req.user1
+    const token1 = req.user2
+    console.log(token , token1)
+
+    const dat = await Group.findById(token1);
+    console.log(dat.creator)
+
+    if (token == dat.creator) {
+      
+      await Group.findByIdAndDelete(token1);
+      res.send("Message successful");
+    } else {
+      res.status(403).json({ error: "You are not the creator of the group" });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 
 
 

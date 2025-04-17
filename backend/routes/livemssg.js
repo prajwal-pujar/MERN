@@ -9,7 +9,8 @@ const bodyparser = require('body-parser')
 const livemssg = require('../modules/Livemssg')
 var jwt = require('jsonwebtoken');
 var jwtsecreat = "i am a good boy"
-
+const Req = require("../modules/Req")
+const Friends = require("../modules/Friends")
 
 
 router.get('/getusers' , fetchuser , async(req , res)=>{
@@ -76,6 +77,118 @@ router.get('/fetch'  , fetchmuser , async(req , res)=>{
         res.status(500).json({ error: "Internal Server Error" });
     }
 })
+
+// Send Friend Request
+router.post("/req", fetchmuser, async (req, res) => {
+    try {
+        const { user1, user2 } = req;
+
+        // Check if already friends
+        const alreadyFriends = await Friends.findOne({
+            user: user1,
+            friendid: user2
+        });
+
+        if (alreadyFriends) {
+            return res.status(400).json({ error: "Already friends" });
+        }
+
+        // Check if request already sent
+        const existingReq = await Req.findOne({
+            senderid: user1,
+            receiveid: user2
+        });
+
+        if (existingReq) {
+            return res.status(400).json({ error: "Request already sent" });
+        }
+
+        const nam = await User.findById(user1).select("name");
+
+        const data = new Req({
+            senderid: user1,
+            receiveid: user2,
+            name: nam.name
+        });
+
+        const reqs = await data.save();
+        res.json(reqs);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+ 
+ 
+ // Get Friend Requests
+ router.get("/getreq", fetchuser , async(req,res) => {
+     try {
+         const requests = await Req.find({ receiveid: req.user }).select('name senderid');
+         const auth = requests.map((ele) => {
+             return jwt.sign({ user: ele.senderid }, jwtsecreat);
+         });
+         res.json({ requests, auth });
+     } catch(err) {
+         console.log(err);
+         res.status(500).json({ error: "Internal Server Error" });
+     }
+ });
+ 
+ 
+ // Accept Friend Request
+ router.post("/addfre", fetchmuser , async(req, res) => {
+     try {
+         const { mssg } = req.body;
+         const receiverId = req.user2;
+         const senderId = req.user1;
+ 
+         const receiver = await User.findById(receiverId).select('name');
+         const sender = await User.findById(senderId).select('name');
+ 
+         if (!receiver || !sender) {
+             return res.status(404).json({ error: "User not found" });
+         }
+ 
+         if (mssg === "yes") {
+             const friend1 = new Friends({ user: senderId, friendid: receiverId, name: receiver.name });
+             const friend2 = new Friends({ user: receiverId, friendid: senderId, name: sender.name });
+ 
+             await friend1.save();
+             await friend2.save();
+ 
+             await Req.deleteOne({ senderid: receiverId, receiveid: senderId });
+ 
+             res.json({ success: true, friends: [friend1, friend2] });
+         } else {
+             return res.status(400).json({ errors: "User did not accept the request" });
+         }
+ 
+     } catch (err) {
+         console.log(err);
+         res.status(500).json({ error: "Internal Server Error" });
+     }
+ });
+ 
+ 
+ // Get Friends
+ router.get("/getfriends", fetchuser, async (req, res) => {
+     try {
+         const userId = req.user;
+ 
+         const friends = await Friends.find({ user: userId }).select('friendid name');
+         const auth = friends.map((ele) => {
+             return jwt.sign({ user: ele.friendid }, jwtsecreat);
+         });
+ 
+         res.json({ friends, auth });
+     } catch (err) {
+         console.log(err);
+         res.status(500).json({ error: "Internal Server Error" });
+     }
+ });
+ 
+
 
 
 

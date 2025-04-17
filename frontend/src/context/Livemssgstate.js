@@ -6,10 +6,21 @@ const LivemssgState = (props) =>{
     const [users , setUsers] = useState([])
     const [auth , setAuth] = useState([])
     const [rec , setRec] = useState()
+    const[req , setReq] = useState([]) 
+    const [sento , setSento] = useState([])
+    const [loading, setLoading] = useState(false);
 
 
+
+    const setSent =(index)=>{
+      console.log(index)
+      localStorage.setItem("token1" , sento[index])
+      const a = localStorage.getItem("token1")
+      console.log(a)
+    }
 
     const setToken = (index)=>{
+      console.log(index)
       localStorage.setItem("token1" , auth[index])
       const a = localStorage.getItem("token1")
       console.log(a)
@@ -17,7 +28,7 @@ const LivemssgState = (props) =>{
 
     const getusers = async() =>{
       let auth = localStorage.getItem("token")
-    
+      setLoading(true); 
       try {
           const response = await fetch('http://localhost:5000/mssg/getusers', {
             method: 'GET',
@@ -36,6 +47,8 @@ const LivemssgState = (props) =>{
           setAuth(data.auth)
         } catch (error) {
           console.error('Error:', error);
+        }finally {
+          setLoading(false); // Stop loading
         }
   }
 
@@ -99,8 +112,123 @@ const LivemssgState = (props) =>{
           }
     }
 
+
+
+    //FRIENDS
+
+
+    const sendreq = async() =>{
+      const a = localStorage.getItem("token1")
+      let auth = localStorage.getItem("token")
+        try {
+            const response = await fetch('http://localhost:5000/mssg/req', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'send-token' : auth,
+                'rec-token': a
+               
+              },
+            });
+          
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+          
+            const data = await response.json();
+            console.log(data);
+          } catch (error) {
+            console.error('Error:', error);
+          }
+    }
+
+    const getreq = async() =>{
+      setLoading(true); 
+      let auth = localStorage.getItem("token")
+        try {
+            const response = await fetch('http://localhost:5000/mssg/getreq', {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'auth-token' : auth 
+              },
+            });
+          
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+          
+            const data = await response.json();
+            setReq(data.requests)
+            setSento(data.auth)
+            console.log(data);
+          } catch (error) {
+            console.error('Error:', error);
+          }finally {
+            setLoading(false); // Stop loading
+          }
+    }
+
+    const accept = async() =>{
+      const a = localStorage.getItem("token1")
+      let auth = localStorage.getItem("token")
+      
+        try {
+            const response = await fetch('http://localhost:5000/mssg/addfre', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'send-token' : auth,
+                'rec-token': a
+              },
+              body: JSON.stringify({
+                mssg : "yes"
+              })
+            });
+          
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+          
+            const data = await response.json();
+            console.log(data);
+          } catch (error) {
+            console.error('Error:', error);
+          }
+    }
+
+    const getfriends = async() =>{
+      let auth = localStorage.getItem("token")
+      setLoading(true); 
+        try {
+            const response = await fetch('http://localhost:5000/mssg/getfriends', {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                'auth-token' : auth 
+              }
+            });
+          
+            if (!response.ok) {
+              throw new Error('Network response was not ok');
+            }
+          
+            const data = await response.json();
+            setUsers(data.friends)
+            setAuth(data.auth)
+            console.log(data);
+          } catch (error) {
+            console.error('Error:', error);
+          }finally {
+            setLoading(false); // Stop loading
+          }
+    }
+
+
+
+    
     return(
-        <Livemssgcontext.Provider value = {{messages , users, auth , fetchdata , senddata , getusers , setToken}}>
+        <Livemssgcontext.Provider value = {{messages , users, auth , fetchdata , senddata , getusers , setToken , sendreq , getreq ,req , setSent , accept,getfriends,loading}}>
             {props.children}
         </Livemssgcontext.Provider>
     );

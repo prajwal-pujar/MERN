@@ -6,6 +6,7 @@ function Signup() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false); // New loading state
   const navi = useNavigate();
 
   const Sub = (field, value) => {
@@ -22,12 +23,14 @@ function Signup() {
 
   const handle = async (event) => {
     event.preventDefault();
+    setIsLoading(true); // Start loading
     try {
-      const response = await fetch('http://localhost:5000/auth/signin', {
+      const response = await fetch('https://mern-xi-eight.vercel.app/auth/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        mode:"cors",
         body: JSON.stringify({
           name,
           email,
@@ -41,11 +44,12 @@ function Signup() {
 
       const data = await response.json();
       localStorage.setItem('token', data);
+      
       navi('../');
-      localStorage.setItem('login', 1);
-    
     } catch (error) {
       console.error('Error:', error);
+    } finally {
+      setIsLoading(false); // Stop loading regardless of success or failure
     }
   };
 
@@ -94,11 +98,26 @@ function Signup() {
                 required
               />
             </div>
+            {isLoading && (
+              <div className="mb-3">
+                <div className="progress">
+                  <div
+                    className="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+                    role="progressbar"
+                    style={{ width: '100%' }}
+                    aria-valuenow="100"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  ></div>
+                </div>
+              </div>
+            )}
             <button
               type="submit"
               className="btn btn-primary btn-lg w-100 mb-3 transition-all duration-300 hover:bg-indigo-600"
+              disabled={isLoading} // Disable button while loading
             >
-              Sign Up
+              {isLoading ? 'Signing up...' : 'Sign Up'}
             </button>
             <p className="text-center text-muted mb-0">
               Already have an account?{' '}

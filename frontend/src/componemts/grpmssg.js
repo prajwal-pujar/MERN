@@ -14,9 +14,9 @@ export default function Grpmssg() {
           if (chatBoxRef.current) {
             chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
           }
-        }, 100);
+        }, 5000);
       });
-    }, 100);
+    }, 5000);
   
     return () => clearInterval(fetchInterval);
   }, []);
