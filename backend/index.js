@@ -11,4 +11,7 @@ app.use('/auth',require('./routes/auth'))
 app.use('/mssg',require('./routes/livemssg'))
 app.use('/upload' , require('./routes/upload'))
 
+app.get('/', (req, res) => {
+  res.send('Hello, World!');
+});
 module.exports = app;
