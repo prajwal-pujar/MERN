@@ -6,7 +6,7 @@ const connect = require('./mongodb')
 const cors = require('cors');
 connect()
 
-const cors = require('cors');
+
 app.use(cors({
   origin: 'https://mern-6gc8-prajwal-pujars-projects.vercel.app', // Allow only this frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific methods
