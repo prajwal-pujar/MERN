@@ -8,6 +8,7 @@ export default function Grpmssg() {
   const chatBoxRef = useRef(null);
 
   useEffect(() => {
+    fetchdata()
     const fetchInterval = setInterval(() => {
       fetchdata().then(() => {
         setTimeout(() => {
