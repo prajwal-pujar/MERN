@@ -25,7 +25,7 @@ function Signup() {
     event.preventDefault();
     setIsLoading(true); // Start loading
     try {
-      const response = await fetch('https://mern-xi-eight.vercel.app/auth/signin', {
+      const response = await fetch('https://mern-zeta-nine.vercel.app/auth/signin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
