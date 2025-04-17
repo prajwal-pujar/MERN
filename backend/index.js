@@ -10,7 +10,7 @@ connect()
 app.use(cors({
   origin: 'https://mern-6gc8-prajwal-pujars-projects.vercel.app', // Allow only this frontend URL
   methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific methods
-  allowedHeaders: ['Content-Type', 'Authorization'] // Allow specific headers
+   allowedHeaders: ['Content-Type', 'auth-token', 'send-token', 'rec-token']// Allow specific headers
 }));
 
 app.use(express.json());
