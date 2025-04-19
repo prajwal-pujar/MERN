@@ -24,11 +24,11 @@ function Signup() {
 
   const handle = async (event) => {
     event.preventDefault();
-     if(value.length<5)
+     if(password.length<5)
       {
         setMessage("Password length should be of more than 5")
       }
-      else if(value.length>10)
+      else if(password.length>10)
       {
         setMessage("Password length should be of less than 10")
       }
