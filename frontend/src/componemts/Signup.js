@@ -18,7 +18,13 @@ function Signup() {
       setEmail(value);
     }
     if (field === 'password') {
-      if(value.length<5)
+       setPassword(value);
+    }
+  };
+
+  const handle = async (event) => {
+    event.preventDefault();
+     if(value.length<5)
       {
         setMessage("Password length should be of more than 5")
       }
@@ -26,14 +32,7 @@ function Signup() {
       {
         setMessage("Password length should be of less than 10")
       }
-      else{
-      setPassword(value);
-      }
-    }
-  };
-
-  const handle = async (event) => {
-    event.preventDefault();
+    else{
     setIsLoading(true); // Start loading
     try {
       const response = await fetch('https://mern-zeta-nine.vercel.app/auth/signin', {
@@ -61,6 +60,7 @@ function Signup() {
       console.error('Error:', error);
     } finally {
       setIsLoading(false); // Stop loading regardless of success or failure
+    }
     }
   };
 
