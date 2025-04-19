@@ -27,12 +27,16 @@ function Signup() {
      if(password.length<5)
       {
         setMessage("Password length should be of more than 5")
+        setTimeout(() => setMessage(""), 3000);
+
       }
       else if(password.length>10)
       {
         setMessage("Password length should be of less than 10")
+        setTimeout(() => setMessage(""), 3000);
       }
     else{
+      setMessage("")
     setIsLoading(true); // Start loading
     try {
       const response = await fetch('https://mern-zeta-nine.vercel.app/auth/signin', {
@@ -69,7 +73,7 @@ function Signup() {
       <div className="card border-0 shadow-sm rounded-3 w-100 fade-in" style={{ maxWidth: '400px' }}>
         <div className="card-body p-5">
            {message && (
-                <div className="alert alert-success text-center" role="alert">
+                <div className="alert alert-warning text-center" role="alert">
                     {message}
                 </div>
             )}
