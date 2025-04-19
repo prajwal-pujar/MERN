@@ -6,7 +6,8 @@ function Signup() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isLoading, setIsLoading] = useState(false); // New loading state
+  const [isLoading, setIsLoading] = useState(false);
+  const [message , setMessage] = useState("");
   const navi = useNavigate();
 
   const Sub = (field, value) => {
@@ -17,7 +18,17 @@ function Signup() {
       setEmail(value);
     }
     if (field === 'password') {
+      if(value.length<5)
+      {
+        setMessage("Password length should be of more than 5")
+      }
+      else if(value.length>10)
+      {
+        setMessage("Password length should be of less than 10")
+      }
+      else{
       setPassword(value);
+      }
     }
   };
 
@@ -57,6 +68,11 @@ function Signup() {
     <div className="container min-vh-100 d-flex align-items-center justify-content-center py-5 bg-gray-100">
       <div className="card border-0 shadow-sm rounded-3 w-100 fade-in" style={{ maxWidth: '400px' }}>
         <div className="card-body p-5">
+           {message && (
+                <div className="alert alert-success text-center" role="alert">
+                    {message}
+                </div>
+            )}
           <h2 className="text-center fw-semibold text-dark mb-4">Sign Up</h2>
           <form onSubmit={handle}>
             <div className="mb-3">
