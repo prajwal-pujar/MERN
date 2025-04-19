@@ -13,6 +13,8 @@ app.use(cors({
    allowedHeaders: ['Content-Type', 'auth-token', 'send-token', 'rec-token']// Allow specific headers
 }));
 
+app.options('*', cors());
+
 app.use(express.json());
 
 app.use('/auth',require('./routes/auth'))
