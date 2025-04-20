@@ -176,12 +176,13 @@ router.post("/req", fetchmuser, async (req, res) => {
      try {
          const userId = req.user;
  
-         const friends = await Friends.find({ user: userId }).select('friendid name').select('-_id -friendid');
+         const friends = await Friends.find({ user: userId }).select('friendid name');
+         const friends1 = await Friends.find({ user: userId }).select('-_id -friendid');
          const auth = friends.map((ele) => {
              return jwt.sign({ user: ele.friendid }, jwtsecreat);
          });
  
-         res.json({ friends, auth });
+         res.json({ friends1, auth });
      } catch (err) {
          console.log(err);
          res.status(500).json({ error: "Internal Server Error" });
