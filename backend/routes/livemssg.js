@@ -176,7 +176,7 @@ router.post("/req", fetchmuser, async (req, res) => {
      try {
          const userId = req.user;
  
-         const friends = await Friends.find({ user: userId }).select('friendid name');
+         const friends = await Friends.find({ user: userId }).select('friendid name').select('-_id -friendid');
          const auth = friends.map((ele) => {
              return jwt.sign({ user: ele.friendid }, jwtsecreat);
          });
