@@ -24,7 +24,7 @@ function Msgfront() {
           <div className="spinner-border text-primary" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
-          <p className="text-muted mt-2">Fetching requests...</p>
+          <p className="text-muted mt-2">Fetching friends...</p>
         </div>
       ) : users.length === 0 ? (
         <div className="text-center">
