@@ -130,7 +130,7 @@ const Livegrpstate = (props) =>{
 
 
     return(
-        <LivegrpContext.Provider value = {{create , get , users , set , fetchdata , messages , senddata}}>
+        <LivegrpContext.Provider value = {{create , get , users , set , fetchdata , messages , senddata , loading}}>
             {props.children}
         </LivegrpContext.Provider>
     );
