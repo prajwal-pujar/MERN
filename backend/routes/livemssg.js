@@ -125,7 +125,7 @@ router.post("/req", fetchmuser, async (req, res) => {
  router.get("/getreq", fetchuser , async(req,res) => {
      try {
          const requests1 = await Req.find({ receiveid: req.user }).select('name senderid');
-         const requests = await Req.find({ receiveid: req.user }).select('-_id -senderid');
+         const requests = await Req.find({ receiveid: req.user }).select('-_id -senderid -receiveid');
          const auth = requests1.map((ele) => {
              return jwt.sign({ user: ele.senderid }, jwtsecreat);
          });
