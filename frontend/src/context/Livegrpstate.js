@@ -42,6 +42,7 @@ const Livegrpstate = (props) =>{
     }
 
     const get = async() =>{
+       setLoading(true)
       let a = localStorage.getItem('token')
       try {
           const response = await fetch('https://mern-zeta-nine.vercel.app/upload/grpdetail', {
@@ -64,6 +65,8 @@ const Livegrpstate = (props) =>{
           setUsers(names)
         } catch (error) {
           console.error('Error:', error);
+        }finally {
+          setLoading(false); // Stop loading
         }
   }
 
