@@ -27,7 +27,7 @@ function Grpfrt() {
           </div>
           <p className="text-muted mt-2">Fetching friends...</p>
         </div>) :
-                {users.length === 0 ? (
+                users.length === 0 ? (
                     <div className="text-center">
                         <p className="text-muted fs-4">No groups participated</p>
                     </div>
