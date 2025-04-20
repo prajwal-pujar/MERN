@@ -6,7 +6,7 @@ const Livegrpstate = (props) =>{
    const [users , setUsers] = useState([])
    const [auth , setAuth] = useState([])
    const[messages , setMessages] = useState([])
-
+    const [loading, setLoading] = useState(false);
 
     const set = (index) =>{
       localStorage.setItem("grptoken" , auth[index])
