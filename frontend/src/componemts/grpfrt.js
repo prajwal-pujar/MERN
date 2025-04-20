@@ -20,6 +20,13 @@ function Grpfrt() {
         <>
             <div className="container py-5">
                 <h1 className="text-center mb-5 fw-semibold text-dark animate-title">Your Groups</h1>
+                     {loading ? (
+        <div className="text-center">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <p className="text-muted mt-2">Fetching friends...</p>
+        </div>) :
                 {users.length === 0 ? (
                     <div className="text-center">
                         <p className="text-muted fs-4">No groups participated</p>
