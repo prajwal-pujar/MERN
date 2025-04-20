@@ -10,6 +10,7 @@ function Create() {
     let ff = localStorage.getItem('token')
     let [creusers, setCreusers] = useState([ff])
     let [groupName, setGroupName] = useState('')
+    let [message , setMessage] = useState('')
 
     useEffect(() => {
         getfriends()
@@ -28,12 +29,19 @@ function Create() {
 
     const handleCreate = () => {
         // Here you could add logic to create the group with groupName and creusers
+        setMessage("Group created successfully")
+        setTimeout(()=>{setMessage("")},3000)
        create(groupName , creusers)
     }
 
     return (
         <div className="container py-5">
             <h1 className="text-center mb-5 fw-semibold text-dark animate-title">Create Group</h1>
+             {message && (
+                <div className="alert alert-success text-center" role="alert">
+                    {message}
+                </div>
+            )}
             <div className="row justify-content-center g-4">
                 <div className="mb-3">
                     <label htmlFor="exampleFormControlInput1" className="form-label">Group Name</label>
