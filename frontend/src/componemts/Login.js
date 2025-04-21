@@ -56,12 +56,13 @@ function Login() {
     <div className="container min-vh-100 d-flex align-items-center justify-content-center py-5 bg-gray-100">
       <div className="card border-0 shadow-sm rounded-3 w-100 fade-in" style={{ maxWidth: '400px' }}>
         <div className="card-body p-5">
-         {message && (
+       
+          <h2 className="text-center fw-semibold text-dark mb-4">Login</h2>
+    {message && (
                 <div className="alert alert-danger  text-center" role="alert">
                     {message}
                 </div>
             )}
-          <h2 className="text-center fw-semibold text-dark mb-4">Login</h2>
           <form onSubmit={handle}>
             <div className="mb-3">
               <label htmlFor="email" className="form-label fw-medium text-dark">
