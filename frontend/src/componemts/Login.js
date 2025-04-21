@@ -36,10 +36,9 @@ function Login() {
       });
 
       if (!response.ok) {
-        throw new Error('Network response was not ok');
-         setMessage("Invalid Credentials");
-
+        setMessage("Invalid Credentials");
         setTimeout(() => setMessage(""), 3000);
+        throw new Error('Network response was not ok');
       }
 
       const data = await response.json();
