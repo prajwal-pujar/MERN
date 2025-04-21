@@ -37,6 +37,9 @@ function Login() {
 
       if (!response.ok) {
         throw new Error('Network response was not ok');
+         setMessage("Invalid Credentials");
+
+        setTimeout(() => setMessage(""), 3000);
       }
 
       const data = await response.json();
@@ -54,7 +57,7 @@ function Login() {
       <div className="card border-0 shadow-sm rounded-3 w-100 fade-in" style={{ maxWidth: '400px' }}>
         <div className="card-body p-5">
          {message && (
-                <div className="alert alert-success text-center" role="alert">
+                <div className="alert alert-danger  text-center" role="alert">
                     {message}
                 </div>
             )}
