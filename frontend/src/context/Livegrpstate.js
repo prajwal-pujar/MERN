@@ -124,7 +124,7 @@ const Livegrpstate = (props) =>{
       const data = await response.json();
      
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Error:', error)
     }
   }
 
