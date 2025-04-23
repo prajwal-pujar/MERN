@@ -30,8 +30,40 @@ function Navbar() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
-            {localStorage.getItem('token') ? (
-            <li className="nav-item">
+           
+          
+            
+              {!localStorage.getItem('token') ? (
+                <>
+                  <li className="nav-item">
+                  <a
+                  className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
+                  href="/about"
+                  >
+                    About
+                  </a>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
+                      to="/login"
+                      role="button"
+                    >
+                      Login
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
+                      to="/signup"
+                      role="button"
+                    >
+                      Signup
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                  <li className="nav-item">
                 <a
                   className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
                   aria-current="page"
@@ -75,37 +107,7 @@ function Navbar() {
                 >
                   Create Grp
                 </a>
-              </li>):(
-              <li className="nav-item">
-                <a
-                  className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
-                  href="/about"
-                >
-                  About
-                </a>
-              </li>)}
-              {!localStorage.getItem('token') ? (
-                <>
-                  <li className="nav-item">
-                    <Link
-                      className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
-                      to="/login"
-                      role="button"
-                    >
-                      Login
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link
-                      className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
-                      to="/signup"
-                      role="button"
-                    >
-                      Signup
-                    </Link>
-                  </li>
-                </>
-              ) : (
+              </li>
                 <li className="nav-item">
                   <button
                     type="button"
