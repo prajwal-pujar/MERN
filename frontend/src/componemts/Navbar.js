@@ -63,6 +63,7 @@ function Navbar() {
                   </li>
                 </>
               ) : (
+                 <>
                   <li className="nav-item">
                 <a
                   className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
@@ -117,6 +118,7 @@ function Navbar() {
                     Logout
                   </button>
                 </li>
+                </>
               )}
             </ul>
           </div>
