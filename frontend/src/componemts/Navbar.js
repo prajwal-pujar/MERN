@@ -83,7 +83,7 @@ function Navbar() {
                 >
                   About
                 </a>
-              </li>)
+              </li>)}
               {!localStorage.getItem('token') ? (
                 <>
                   <li className="nav-item">
