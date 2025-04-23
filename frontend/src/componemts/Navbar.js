@@ -30,6 +30,7 @@ function Navbar() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
+            {localStorage.getItem('token') ? (
             <li className="nav-item">
                 <a
                   className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
@@ -74,7 +75,7 @@ function Navbar() {
                 >
                   Create Grp
                 </a>
-              </li>
+              </li>):(
               <li className="nav-item">
                 <a
                   className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
@@ -82,7 +83,7 @@ function Navbar() {
                 >
                   About
                 </a>
-              </li>
+              </li>)
               {!localStorage.getItem('token') ? (
                 <>
                   <li className="nav-item">
