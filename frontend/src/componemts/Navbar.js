@@ -16,7 +16,7 @@ function Navbar() {
     <>
       <nav className="navbar navbar-expand-lg bg-white shadow-sm">
         <div className="container py-2">
-          <a className="navbar-brand fw-bold text-primary" href="/">We$Chat</a>
+          <Link className="navbar-brand fw-bold text-primary" to="/">We$Chat</Link>
           <button
             className="navbar-toggler border-0 animate-toggler"
             type="button"
@@ -30,24 +30,20 @@ function Navbar() {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center">
-           
-          
-            
               {!localStorage.getItem('token') ? (
                 <>
                   <li className="nav-item">
-                  <a
-                  className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
-                  href="/about"
-                  >
-                    About
-                  </a>
+                    <Link
+                      className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
+                      to="/about"
+                    >
+                      About
+                    </Link>
                   </li>
                   <li className="nav-item">
                     <Link
                       className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
                       to="/login"
-                      role="button"
                     >
                       Login
                     </Link>
@@ -56,68 +52,70 @@ function Navbar() {
                     <Link
                       className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
                       to="/signup"
-                      role="button"
                     >
                       Signup
                     </Link>
                   </li>
                 </>
               ) : (
-                 <>
+                <>
                   <li className="nav-item">
-                <a
-                  className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
-                  aria-current="page"
-                  href="/accreq"
-                >
-                  Accept friends
-                </a>
-              </li>
-            <li className="nav-item">
-                <a
-                  className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
-                  aria-current="page"
-                  href="/req"
-                >
-                  Req friends
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
-                  aria-current="page"
-                  href="/"
-                >
-                  Messages
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
-                  aria-current="page"
-                  href="/grpfrt"
-                >
-                  Groups
-                </a>
-              </li>
-              <li className="nav-item">
-                <a
-                  className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
-                  aria-current="page"
-                  href="/crgrp"
-                >
-                  Create Grp
-                </a>
-              </li>
-                <li className="nav-item">
-                  <button
-                    type="button"
-                    className="btn btn-outline-primary animate-btn"
-                    onClick={logout}
-                  >
-                    Logout
-                  </button>
-                </li>
+                    <Link
+                      className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
+                      to="/accreq"
+                    >
+                      Accept friends
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
+                      to="/req"
+                    >
+                      Req friends
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
+                      to="/"
+                    >
+                      Messages
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
+                      to="/grpfrt"
+                    >
+                      Groups
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link
+                      className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
+                      to="/crgrp"
+                    >
+                      Create Grp
+                    </Link>
+                  </li>
+                   <li className="nav-item">
+                    <Link
+                      className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
+                      to="/about"
+                    >
+                      About
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <button
+                      type="button"
+                      className="btn btn-outline-primary animate-btn"
+                      onClick={logout}
+                    >
+                      Logout
+                    </button>
+                  </li>
                 </>
               )}
             </ul>
