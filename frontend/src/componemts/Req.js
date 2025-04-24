@@ -7,10 +7,12 @@ function Req() {
     const { users, auth, getusers, setToken, sendreq ,loading} = useContext(Livemssgcontext);
     const [message, setMessage] = useState("");
     const [disabledIndexes, setDisabledIndexes] = useState([]);
+    const [req , setReq] = useState([])
     const navigate = useNavigate();
 
     useEffect(() => {
         getusers();
+        setReq(users.filter(e => !b.includes(e))
     }, []);
 
     const sub = async (index) => {
