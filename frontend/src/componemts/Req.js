@@ -7,7 +7,7 @@ function Req() {
     const { users, auth, getusers, setToken, sendreq ,loading , friends} = useContext(Livemssgcontext);
     const [message, setMessage] = useState("");
     const [disabledIndexes, setDisabledIndexes] = useState([]);
-    const [req , setReq] = ([])
+    const [req , setReq] = useState([])
     const navigate = useNavigate();
 
     useEffect(() => {
