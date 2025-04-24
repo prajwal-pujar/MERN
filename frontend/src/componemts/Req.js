@@ -13,7 +13,7 @@ function Req() {
     useEffect(() => {
         getusers();
         
-    }, []);
+    }, [friends , users]);
 
     useEffect(() => {
      setReq(users.filter(u => !friends.some(u1 => u1.name === u.name)));
