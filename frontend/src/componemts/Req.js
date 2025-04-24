@@ -7,7 +7,7 @@ function Req() {
     const { users, auth, getusers, setToken, sendreq ,loading , friends} = useContext(Livemssgcontext);
     const [message, setMessage] = useState("");
     const [disabledIndexes, setDisabledIndexes] = useState([]);
-    const [req , setReq] = useState([])
+    
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -15,9 +15,7 @@ function Req() {
         
     }, []);
 
-    useEffect(() => {
-     setReq(users.filter(u => !friends.some(u1 => u1.name === u.name)));
-}, [friends , users]);
+ 
 
     const sub = async (index) => {
         await setToken(index);
@@ -52,7 +50,7 @@ function Req() {
         </div>
       ) :
            ( <div className="row justify-content-center g-4">
-                {req.map((ele, index) => (
+                {users.map((ele, index) => (
                     <div key={index} className="col-12 col-md-6 col-lg-4">
                         <div className="card border-0 shadow-sm rounded-3 overflow-hidden">
                             <div className="card-body p-4 d-flex align-items-center justify-content-between">
