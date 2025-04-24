@@ -15,9 +15,11 @@ function Req() {
         
     }, []);
 
-    useEffect(() => {
-    setReq(users.filter(u => !friends.some(u1 => u1.name === u.name)));
-   }, [users , friends]);
+useEffect(() => {
+  if (users.length > 0) {
+    setReq(users.filter(u => !friends.some(f => f.name === u.name)));
+  }
+}, [users, friends]);
  
 
     const sub = async (index) => {
