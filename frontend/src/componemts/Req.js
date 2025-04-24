@@ -7,20 +7,16 @@ function Req() {
     const { users, auth, getusers, setToken, sendreq ,loading , friends} = useContext(Livemssgcontext);
     const [message, setMessage] = useState("");
     const [disabledIndexes, setDisabledIndexes] = useState([]);
-    const [req , setReq] = useState([])
+  
     const navigate = useNavigate();
     
 useEffect(() => {
-    (async () => {
-        await getusers(); // wait for users to be fetched
-    })();
+ 
+    getusers(); // wait for users to be fetched
+    
 }, []);
 
-useEffect(() => {
-  if (users.length > 0) {
-    setReq(users.filter(u => !friends.some(f => f.name === u.name)));
-  }
-}, [users, friends]);
+
  
 
     const sub = async (index) => {
@@ -50,13 +46,13 @@ useEffect(() => {
           </div>
           <p className="text-muted mt-2">Fetching users...</p>
         </div>
-      ) : req.length === 0 ? (
+      ) : users.length === 0 ? (
         <div className="text-center">
           <p className="text-muted fs-4">No users found</p>
         </div>
       ) :
            ( <div className="row justify-content-center g-4">
-                {req.map((ele, index) => (
+                {users.map((ele, index) => (
                     <div key={index} className="col-12 col-md-6 col-lg-4">
                         <div className="card border-0 shadow-sm rounded-3 overflow-hidden">
                             <div className="card-body p-4 d-flex align-items-center justify-content-between">
