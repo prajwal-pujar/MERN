@@ -12,8 +12,12 @@ function Req() {
 
     useEffect(() => {
         getusers();
-        setReq(users.filter(e => !friends.includes(e))
+        
     }, []);
+
+    useEffect(() => {
+    setReq(users.filter(e => !friends.includes(e)));
+}, [users, friends]);
 
     const sub = async (index) => {
         await setToken(index);
