@@ -9,11 +9,12 @@ function Req() {
     const [disabledIndexes, setDisabledIndexes] = useState([]);
     const [req , setReq] = useState([])
     const navigate = useNavigate();
-
-    useEffect(() => {
-        getusers();
-        
-    }, []);
+    
+useEffect(() => {
+    (async () => {
+        await getusers(); // wait for users to be fetched
+    })();
+}, []);
 
 useEffect(() => {
   if (users.length > 0) {
