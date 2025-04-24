@@ -9,6 +9,7 @@ const LivemssgState = (props) =>{
     const[req , setReq] = useState([]) 
     const [sento , setSento] = useState([])
     const [loading, setLoading] = useState(false);
+     const [friends , setFriends] = useState([])
 
 
 
@@ -221,7 +222,7 @@ const LivemssgState = (props) =>{
             }
           
             const data = await response.json();
-            setUsers(data.friends1)
+            setFriends(data.friends1)
             setAuth(data.auth)
          
           } catch (error) {
@@ -235,7 +236,7 @@ const LivemssgState = (props) =>{
 
     
     return(
-        <Livemssgcontext.Provider value = {{messages , users, auth , fetchdata , senddata , getusers , setToken , sendreq , getreq ,req , setSent , accept,getfriends,loading}}>
+        <Livemssgcontext.Provider value = {{messages ,friends, users, auth , fetchdata , senddata , getusers , setToken , sendreq , getreq ,req , setSent , accept,getfriends,loading}}>
             {props.children}
         </Livemssgcontext.Provider>
     );
