@@ -3,7 +3,7 @@ import Livemssgcontext from '../context/LivemssgContext';
 import { useNavigate } from "react-router-dom";
 import "./Msgfront.css"
 function Msgfront() {
-    const { users, auth, getusers, setToken ,getfriends , loading} = useContext(Livemssgcontext);
+    const { users, auth, getusers, setToken ,getfriends , loading , friends} = useContext(Livemssgcontext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -32,7 +32,7 @@ function Msgfront() {
         </div>
       ) :
            ( <div className="row justify-content-center g-4">
-                {users.map((ele, index) => (
+                {friends.map((ele, index) => (
                     <div key={index} className="col-12 col-md-6 col-lg-4">
                         <div className="card border-0 shadow-sm rounded-3 overflow-hidden">
                             <div className="card-body p-4 d-flex align-items-center justify-content-between">
