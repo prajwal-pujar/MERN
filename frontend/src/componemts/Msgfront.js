@@ -3,7 +3,7 @@ import Livemssgcontext from '../context/LivemssgContext';
 import { useNavigate } from "react-router-dom";
 import "./Msgfront.css"
 function Msgfront() {
-    const { users, auth, getusers, setToken ,getfriends , loading , friends} = useContext(Livemssgcontext);
+    const { friends, auth, getusers, setToken ,getfriends , loading } = useContext(Livemssgcontext);
     const navigate = useNavigate();
 
     useEffect(() => {
