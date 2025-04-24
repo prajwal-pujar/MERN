@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import "./Msgfront.css";
 
 function Req() {
-    const { users, auth, getusers, setToken, sendreq ,loading} = useContext(Livemssgcontext);
+    const { users, auth, getusers, setToken, sendreq ,loading , friends} = useContext(Livemssgcontext);
     const [message, setMessage] = useState("");
     const [disabledIndexes, setDisabledIndexes] = useState([]);
     const [req , setReq] = useState([])
@@ -12,7 +12,7 @@ function Req() {
 
     useEffect(() => {
         getusers();
-        setReq(users.filter(e => !b.includes(e))
+        setReq(users.filter(e => !friends.includes(e))
     }, []);
 
     const sub = async (index) => {
@@ -48,7 +48,7 @@ function Req() {
         </div>
       ) :
            ( <div className="row justify-content-center g-4">
-                {users.map((ele, index) => (
+                {req.map((ele, index) => (
                     <div key={index} className="col-12 col-md-6 col-lg-4">
                         <div className="card border-0 shadow-sm rounded-3 overflow-hidden">
                             <div className="card-body p-4 d-flex align-items-center justify-content-between">
