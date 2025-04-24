@@ -16,7 +16,7 @@ function Req() {
     }, []);
 
     useEffect(() => {
-    setReq(users.filter(e => !friends.includes(e)));
+     setReq(users.filter(u => !friends.some(u1 => u1.name === u.name)));
 }, []);
 
     const sub = async (index) => {
