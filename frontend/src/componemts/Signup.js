@@ -87,9 +87,7 @@ function Signup() {
               <button className="btn btn-outline-primary me-2" onClick={() => setShowAvatar(true)}>
                 Yes, Upload
               </button>
-              <button className="btn btn-outline-secondary" onClick={() => setShowAvatar(true)}>
-                No, Use Default
-              </button>
+             
             </div>
           ) : (
             <div className="d-flex flex-column align-items-center mb-3">
