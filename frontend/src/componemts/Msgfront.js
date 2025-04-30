@@ -3,7 +3,7 @@ import Livemssgcontext from '../context/LivemssgContext';
 import { useNavigate } from "react-router-dom";
 import "./Msgfront.css"
 function Msgfront() {
-    const { users, auth, getusers, setToken ,getfriends , loading } = useContext(Livemssgcontext);
+    const { friends, auth, getusers, setToken ,getfriends , loading } = useContext(Livemssgcontext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -26,13 +26,13 @@ function Msgfront() {
           </div>
           <p className="text-muted mt-2">Fetching friends...</p>
         </div>
-      ) : users.length === 0 ? (
+      ) : friends.length === 0 ? (
         <div className="text-center">
           <p className="text-muted fs-4">No users found</p>
         </div>
       ) :
            ( <div className="row justify-content-center g-4">
-                {users.map((ele, index) => (
+                {friends.map((ele, index) => (
                     <div key={index} className="col-12 col-md-6 col-lg-4">
                         <div className="card border-0 shadow-sm rounded-3 overflow-hidden">
                             <div className="card-body p-4 d-flex align-items-center justify-content-between">
