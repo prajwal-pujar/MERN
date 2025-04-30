@@ -1,27 +1,33 @@
-const express = require('express')
-const app = express()
-const port = 5000
+const express = require('express');
+const app = express();
+const port = 5000;
 const mongoose = require('mongoose');
-const connect = require('./mongodb')
+const connect = require('./mongodb');
 const cors = require('cors');
-connect()
 
+connect();
 
-app.use(cors({
-  origin: 'https://mern-6gc8-prajwal-pujars-projects.vercel.app', // Allow only this frontend URL
-  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allow specific methods
-   allowedHeaders: ['Content-Type', 'auth-token', 'send-token', 'rec-token']// Allow specific headers
-}));
+// CORS configuration
+const corsOptions = {
+  origin: 'https://mern-6gc8-prajwal-pujars-projects.vercel.app', // Allowed frontend
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'auth-token', 'send-token', 'rec-token'],
+};
 
-app.options('*', cors());
+// Apply CORS and preflight OPTIONS handling
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
 
-app.use(express.json());
+// Increase body size limit to support base64 image uploads
+app.use(express.json({ limit: '5mb' }));
 
-app.use('/auth',require('./routes/auth'))
-app.use('/mssg',require('./routes/livemssg'))
-app.use('/upload' , require('./routes/upload'))
+// Routes
+app.use('/auth', require('./routes/auth'));
+app.use('/mssg', require('./routes/livemssg'));
+app.use('/upload', require('./routes/upload'));
 
 app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
+
 module.exports = app;
