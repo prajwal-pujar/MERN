@@ -222,6 +222,7 @@ const LivemssgState = (props) =>{
             }
           
             const data = await response.json();
+            console.log(data)
             setFriends(data.friends1)
             setAuth(data.auth)
          
