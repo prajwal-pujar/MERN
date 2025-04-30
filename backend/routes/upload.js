@@ -35,7 +35,7 @@ router.post('/grp' ,fetchuser , async(req ,res)=>{
 router.get('/grpdetail' ,fetchuser , async(req ,res)=>{
   try{
     const token = req.user;
-    const data = await Group.find({ users: { $in: [token] } }).select('-_id -users');
+    const data = await Group.find({ users: { $in: [token] } }).select('-_id -users -creator');
     const data1 = await Group.find({ users: { $in: [token] } });
     let token1 = []
     token1 = data1.map((ele)=>{
