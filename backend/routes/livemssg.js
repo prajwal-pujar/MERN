@@ -81,6 +81,7 @@ router.get('/fetch'  , fetchmuser , async(req , res)=>{
 // Send Friend Request
 router.post("/req", fetchmuser, async (req, res) => {
     try {
+        
         const { user1, user2 } = req;
 
         // Check if already friends
@@ -103,12 +104,13 @@ router.post("/req", fetchmuser, async (req, res) => {
             return res.status(400).json({ error: "Request already sent" });
         }
 
-        const nam = await User.findById(user1).select("name");
+        const nam = await User.findById(user1).select("name image");
 
         const data = new Req({
             senderid: user1,
             receiveid: user2,
-            name: nam.name
+            name: nam.name,
+            image : nam.image
         });
 
         const reqs = await data.save();
@@ -124,9 +126,8 @@ router.post("/req", fetchmuser, async (req, res) => {
  // Get Friend Requests
  router.get("/getreq", fetchuser , async(req,res) => {
      try {
-         const requests1 = await Req.find({ receiveid: req.user }).select('name senderid');
-         const requests = await Req.find({ receiveid: req.user }).select('-_id -senderid -receiveid');
-         const auth = requests1.map((ele) => {
+         const requests = await Req.find({ receiveid: req.user }).select('name senderid image');
+         const auth = requests.map((ele) => {
              return jwt.sign({ user: ele.senderid }, jwtsecreat);
          });
          res.json({ requests, auth });
@@ -144,16 +145,16 @@ router.post("/req", fetchmuser, async (req, res) => {
          const receiverId = req.user2;
          const senderId = req.user1;
  
-         const receiver = await User.findById(receiverId).select('name');
-         const sender = await User.findById(senderId).select('name');
+         const receiver = await User.findById(receiverId).select('name image');
+         const sender = await User.findById(senderId).select('name image');
  
          if (!receiver || !sender) {
              return res.status(404).json({ error: "User not found" });
          }
  
          if (mssg === "yes") {
-             const friend1 = new Friends({ user: senderId, friendid: receiverId, name: receiver.name });
-             const friend2 = new Friends({ user: receiverId, friendid: senderId, name: sender.name });
+             const friend1 = new Friends({ user: senderId, friendid: receiverId, name: receiver.name , image: receiver.image});
+             const friend2 = new Friends({ user: receiverId, friendid: senderId, name: sender.name ,  image: sender.image});
  
              await friend1.save();
              await friend2.save();
@@ -177,13 +178,12 @@ router.post("/req", fetchmuser, async (req, res) => {
      try {
          const userId = req.user;
  
-         const friends = await Friends.find({ user: userId }).select('friendid name');
-         const friends1 = await Friends.find({ user: userId }).select('-_id -friendid -user');
+         const friends = await Friends.find({ user: userId }).select('friendid name image');
          const auth = friends.map((ele) => {
              return jwt.sign({ user: ele.friendid }, jwtsecreat);
          });
  
-         res.json({ friends1, auth });
+         res.json({ friends, auth });
      } catch (err) {
          console.log(err);
          res.status(500).json({ error: "Internal Server Error" });
