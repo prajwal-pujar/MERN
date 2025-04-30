@@ -32,7 +32,7 @@ function Msgfront() {
         </div>
       ) :
            ( <div className="row justify-content-center g-4">
-                {friends.map((ele, index) => (
+                {users.map((ele, index) => (
                     <div key={index} className="col-12 col-md-6 col-lg-4">
                         <div className="card border-0 shadow-sm rounded-3 overflow-hidden">
                             <div className="card-body p-4 d-flex align-items-center justify-content-between">
