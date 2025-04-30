@@ -7,12 +7,9 @@ function Accreq() {
     const [message, setMessage] = useState("");
 
     useEffect(() => {
-        getreq();
-        const interval = setInterval(() => {
+      
             getreq();
-        }, 5000); 
-    
-        return () => clearInterval(interval); 
+        
     }, []);
     
 
@@ -55,9 +52,7 @@ function Accreq() {
                             <div className="card border-0 shadow-sm rounded-3 overflow-hidden">
                                 <div className="card-body p-4 d-flex align-items-center justify-content-between">
                                     <div className="d-flex align-items-center">
-                                        <div className="avatar-circle bg-primary text-white me-3">
-                                            {ele.name.charAt(0).toUpperCase()}
-                                        </div>
+                                       <img src={ele.image} alt="user" style={{ width: "40px", height: "40px", borderRadius: "50%", objectFit: "cover", marginRight: "10px" }} />
                                         <h5 className="card-title mb-0 fw-medium text-dark">
                                             {ele.name.charAt(0).toUpperCase() + ele.name.slice(1)}
                                         </h5>
