@@ -10,6 +10,9 @@ const friendSchema = new mongoose.Schema({
         type : mongoose.Schema.Types.ObjectId,
         ref : 'User'
     },
+    image: {
+        type : String,
+    },
     name: {
         type: String,
         required: true
