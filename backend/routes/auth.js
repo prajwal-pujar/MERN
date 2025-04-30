@@ -41,7 +41,7 @@ try{
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const {name , email , password} = req.body;
+        const {name , email , password , image} = req.body;
 
         const existingUser = await User.findOne({ email });
         if (existingUser) {
@@ -54,7 +54,7 @@ try{
  
     
         const user = new User({
-        name ,  email , password : hash
+        name ,  email , password : hash , image
          })
         const data = await user.save()
         var token = jwt.sign({ user : data._id }, jwtsecreat);
