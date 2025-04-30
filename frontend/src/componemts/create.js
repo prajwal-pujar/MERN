@@ -5,7 +5,7 @@ import LivegrpContext from '../context/LivegrpConstext'
 
 
 function Create() {
-    let {users, getusers, auth , getfriends} = useContext(Livemssgcontext)
+    let {friends ,users, getusers, auth , getfriends} = useContext(Livemssgcontext)
     let {create} = useContext(LivegrpContext)
     let ff = localStorage.getItem('token')
     let [creusers, setCreusers] = useState([ff])
@@ -31,7 +31,7 @@ function Create() {
         // Here you could add logic to create the group with groupName and creusers
         setMessage("Group created successfully")
         setTimeout(()=>{setMessage("")},3000)
-       create(groupName , creusers)
+        create(groupName , creusers)
     }
 
     return (
@@ -53,7 +53,7 @@ function Create() {
                         onChange={(e) => setGroupName(e.target.value)}
                     />
                 </div>
-                {users.map((ele, index) => (
+                {friends.map((ele, index) => (
                     <div key={index} className="col-12 col-md-6 col-lg-4">
                         <div className="card border-0 shadow-sm rounded-3 overflow-hidden">
                             <div className="card-body p-4 d-flex align-items-center justify-content-between">
