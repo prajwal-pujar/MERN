@@ -47,7 +47,7 @@ try{
          })
         const data = await user.save()
         var token = jwt.sign({ user : data._id }, jwtsecreat);
-      res.json({data.name , data.image , token})
+      res.json({name:data.name , image:data.image , token})
     }
     catch(err){
         res.send(err)
@@ -88,7 +88,7 @@ router.post('/login' ,[
         {
             const user = await User.findOne({ email }, { password: 1, _id: 1 , image:1 , name:1 });
             var token = jwt.sign({ user : user._id }, jwtsecreat);
-            res.json({user.name , user.image , token})
+            res.json({name:user.name , image:user.image , token})
         }   
     }
     catch(err){
