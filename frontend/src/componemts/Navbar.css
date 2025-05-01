@@ -1,88 +1,49 @@
-/* General Navbar Styles */
-.navbar {
-  padding: 0.5rem 1rem;
-}
+/* Navbar.css */
 
-.navbar .navbar-brand {
-  font-size: 1.5rem;
-}
-
-/* Ensure the navbar items stack on mobile */
-@media (max-width: 767px) {
-  .navbar-nav {
-    display: block;
-    width: 100%;
-    text-align: center;
+/* Animation for nav links */
+.animate-nav-link {
+    position: relative;
+    transition: all 0.3s ease;
   }
-
-  .navbar-nav .nav-item {
-    padding: 0.5rem 0;
-    width: 100%;
+  
+  .animate-nav-link:hover {
+    color: #4f46e5; /* Tailwind's indigo-600 */
+    transform: translateY(-2px);
   }
-
-  .navbar-toggler {
-    border-color: transparent;
-  }
-
-  .navbar-toggler-icon {
-    background-color: #000;
-  }
-
-  /* Custom dropdown on mobile */
-  .custom-dropdown {
+  
+  .animate-nav-link::after {
+    content: '';
     position: absolute;
-    top: 100%;
-    right: 0;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 0.5rem 0;
-    width: 200px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    opacity: 0;
-    transform: translateY(10px);
-    visibility: hidden;
-    transition: all 0.25s ease;
-    z-index: 1000;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: #4f46e5; /* Matches hover color */
+    transition: width 0.3s ease;
   }
-
-  .custom-dropdown.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-  }
-
-  .custom-dropdown li a {
-    display: block;
-    padding: 0.5rem 1rem;
-    color: #333;
-    text-decoration: none;
-    transition: background 0.2s;
-  }
-
-  .custom-dropdown li a:hover {
-    background-color: #f1f1f1;
-  }
-
-  /* Align user image on mobile */
-  .nav-item.d-flex {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .nav-item img {
-    margin: 0 0.5rem;
-  }
-
-  .navbar-nav .nav-item .btn {
+  
+  .animate-nav-link:hover::after {
     width: 100%;
-    margin-top: 0.5rem;
   }
-}
-
-@media (max-width: 1199px) {
-  .navbar-nav .nav-item {
-    padding: 0.5rem 0;
+  
+  /* Animation for the logout button */
+  .animate-btn {
+    transition: all 0.3s ease;
   }
-}
+  
+  .animate-btn:hover {
+    transform: scale(1.05);
+    background-color: #000000; /* Indigo-600 */
+    color: white;
+    border-color: #000000;
+  }
+  
+  /* Animation for the toggler button */
+  .animate-toggler {
+    transition: all 0.3s ease;
+  }
+  
+  .animate-toggler:hover {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
