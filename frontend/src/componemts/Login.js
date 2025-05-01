@@ -42,7 +42,7 @@ function Login() {
       }
 
       const data = await response.json();
-      localStorage.setItem('token', data);
+      localStorage.setItem('token', data.token);
       navi('../');
     } catch (error) {
       console.error('Error:', error);
