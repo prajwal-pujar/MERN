@@ -47,7 +47,7 @@ try{
          })
         const data = await user.save()
         var token = jwt.sign({ user : data._id }, jwtsecreat);
-        res.json(token)
+      res.json({data.name , data.image , token})
     }
     catch(err){
         res.send(err)
