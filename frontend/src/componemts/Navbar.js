@@ -32,24 +32,9 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg bg-white shadow-sm">
       <div className="container py-2">
-      {!isLoggedIn ? (
-        <>
-      <Link className="navbar-brand fw-bold text-primary" href="/">We$Chat</Link>
-        </>
-      ):(
-        <>
-       <li className="nav-item d-flex align-items-center ms-3">
-                  <img
-                    src={userImage}
-                    alt="User"
-                    className="rounded-circle"
-                    width="35"
-                    height="35"
-                    style={{ objectFit: 'cover' }}
-                  />
-                  <span className="ms-2 fw-medium text-dark">{username}</span>
-                </li>
-           </>)}
+        <Link className="navbar-brand fw-bold text-primary" to="/">
+          We$Chat
+        </Link>
         <button
           className="navbar-toggler border-0"
           type="button"
@@ -97,7 +82,17 @@ function Navbar() {
                   </ul>
                 </li>
 
-                
+                <li className="nav-item d-flex align-items-center ms-3">
+                  <img
+                    src={userImage}
+                    alt="User"
+                    className="rounded-circle"
+                    width="35"
+                    height="35"
+                    style={{ objectFit: 'cover' }}
+                  />
+                  <span className="ms-2 fw-medium text-dark">{username}</span>
+                </li>
 
                 <li className="nav-item ms-3">
                   <button className="btn btn-outline-primary" onClick={logout}>
