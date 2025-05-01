@@ -5,6 +5,7 @@ function Accreq() {
 
     const { getreq, req, setSent, accept ,loading} = useContext(Livemssgcontext);
     const [message, setMessage] = useState("");
+    const [clicked, setClicked] = useState({});
 
     useEffect(() => {
       
@@ -14,6 +15,8 @@ function Accreq() {
     
 
     const sub = async (index) => {
+          if (clicked[index]) return; // Prevent double trigger
+          setClicked(prev => ({ ...prev, [index]: true }));
         await setSent(index);
         await accept();
         let updated = [...req];
@@ -58,11 +61,12 @@ function Accreq() {
                                         </h5>
                                     </div>
                                     <button
-                                        onClick={() => sub(index)}
-                                        className="btn btn-outline-primary btn-sm px-3 py-1"
-                                    >
-                                        Accept
-                                    </button>
+                                          onClick={() => sub(index)}
+                                          className="btn btn-outline-primary btn-sm px-3 py-1"
+                                          disabled={clicked[index]}
+                                      >
+                                       Accept
+                                      </button>
                                 </div>
                             </div>
                         </div>
