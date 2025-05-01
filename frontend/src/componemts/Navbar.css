@@ -47,3 +47,17 @@
     transform: scale(1.1);
     opacity: 0.8;
   }
+
+/* Dropdown animation */
+.dropdown-animated {
+  opacity: 0;
+  transform: translateY(10px);
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.dropdown.show .dropdown-animated {
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+}
