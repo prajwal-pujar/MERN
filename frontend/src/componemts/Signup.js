@@ -61,7 +61,7 @@ function Signup() {
       if (!response.ok) throw new Error('Network response was not ok');
 
       const data = await response.json();
-      localStorage.setItem('token', data);
+      localStorage.setItem('token', data.token);
       navigate('../');
     } catch (error) {
       console.error('Error:', error);
