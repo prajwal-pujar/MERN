@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
@@ -8,14 +8,26 @@ function Navbar() {
   const username = localStorage.getItem('name');
   const userImage = localStorage.getItem('image') || 'https://via.placeholder.com/35';
 
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const toggleDropdown = () => setDropdownOpen(prev => !prev);
+
   const logout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('token1');
-    localStorage.removeItem('grptoken');
-    localStorage.removeItem('image');
-    localStorage.removeItem('name');
+    localStorage.clear();
     navigate('/login');
   };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   return (
     <nav className="navbar navbar-expand-lg bg-white shadow-sm">
@@ -35,7 +47,6 @@ function Navbar() {
 
         <div className="collapse navbar-collapse" id="navbarContent">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
-
             <li className="nav-item">
               <Link className="nav-link text-dark fw-medium" to="/about">About</Link>
             </li>
@@ -51,23 +62,21 @@ function Navbar() {
               </>
             ) : (
               <>
-                <li className="nav-item dropdown">
-                  <span
-                      className="nav-link dropdown-toggle text-dark fw-medium"
-                      id="userMenu"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                       style={{ cursor: 'pointer' }}
-                        >
-                      Actions
-                      </span>
-                  <ul className="dropdown-menu dropdown-menu-end animate-dropdown" aria-labelledby="userMenu">
-                    <li><Link className="dropdown-item" to="/">Messages</Link></li>
-                    <li><Link className="dropdown-item" to="/accreq">Accept Friends</Link></li>
-                    <li><Link className="dropdown-item" to="/req">Req Friends</Link></li>
-                    <li><Link className="dropdown-item" to="/grpfrt">Groups</Link></li>
-                    <li><Link className="dropdown-item" to="/crgrp">Create Group</Link></li>
+                <li className="nav-item position-relative" ref={dropdownRef}>
+                  <button
+                    onClick={toggleDropdown}
+                    className="btn btn-light fw-medium text-dark d-flex align-items-center"
+                    style={{ border: '1px solid #ccc', borderRadius: '6px' }}
+                  >
+                    Actions
+                    <span className="ms-2">&#9662;</span>
+                  </button>
+                  <ul className={`custom-dropdown ${dropdownOpen ? 'show' : ''}`}>
+                    <li><Link to="/">Messages</Link></li>
+                    <li><Link to="/accreq">Accept Friends</Link></li>
+                    <li><Link to="/req">Req Friends</Link></li>
+                    <li><Link to="/grpfrt">Groups</Link></li>
+                    <li><Link to="/crgrp">Create Group</Link></li>
                   </ul>
                 </li>
 
@@ -84,10 +93,7 @@ function Navbar() {
                 </li>
 
                 <li className="nav-item ms-3">
-                  <button
-                    className="btn btn-outline-primary"
-                    onClick={logout}
-                  >
+                  <button className="btn btn-outline-primary" onClick={logout}>
                     Logout
                   </button>
                 </li>
