@@ -8,22 +8,11 @@ const bcrypt = require('bcryptjs');
 var jwt = require('jsonwebtoken');
 var jwtsecreat = "i am a good boy"
 const fetchuser = require("../middlware/login")
-const multer = require('multer');
-const fs = require('fs');
 
 
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'uploads')
-    },
-    filename: function (req, file, cb) {
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-      cb(null, file.originalname)
-    }
-  })
-  
-  const upload = multer({ storage: storage })
+
+
 
 router.post('/signin' , [
     check('name', 'Name length should be 10 to 20 characters')
@@ -99,7 +88,7 @@ router.post('/login' ,[
         {
             const user = await User.findOne({ email }, { password: 1, _id: 1 });
             var token = jwt.sign({ user : user._id }, jwtsecreat);
-            res.json(token)
+            res.json({user.name , user.image , token})
         }   
     }
     catch(err){
