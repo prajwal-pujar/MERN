@@ -62,6 +62,8 @@ function Signup() {
 
       const data = await response.json();
       localStorage.setItem('token', data.token);
+      localStorage.setItem('image', data.image);
+      localStorage.setItem('name', data.name);
       navigate('../');
     } catch (error) {
       console.error('Error:', error);
