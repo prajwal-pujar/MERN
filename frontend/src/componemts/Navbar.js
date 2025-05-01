@@ -62,7 +62,7 @@ function Navbar() {
                   >
                     Actions
                   </span>
-                  <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                  <ul className="dropdown-menu dropdown-menu-end dropdown-animated" aria-labelledby="userMenu">
                     <li><Link className="dropdown-item" to="/">Messages</Link></li>
                     <li><Link className="dropdown-item" to="/accreq">Accept Friends</Link></li>
                     <li><Link className="dropdown-item" to="/req">Req Friends</Link></li>
