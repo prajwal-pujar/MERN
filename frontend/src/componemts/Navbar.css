@@ -87,3 +87,13 @@
   background-color: #f1f1f1;
 }
 
+@media (max-width: 767px) {
+  .navbar-nav .nav-item {
+    margin-left: 1rem; /* Add margin between items */
+  }
+
+  .custom-dropdown {
+    margin-right: 1rem; /* Add space to the right of the dropdown */
+  }
+}
+
