@@ -53,16 +53,16 @@ function Navbar() {
               <>
                 <li className="nav-item dropdown">
                   <span
-                    className="nav-link dropdown-toggle text-dark fw-medium"
-                    id="userMenu"
-                    role="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="false"
-                    style={{ cursor: 'pointer' }}
-                  >
-                    Actions
-                  </span>
-                  <ul className="dropdown-menu dropdown-menu-end dropdown-animated" aria-labelledby="userMenu">
+                      className="nav-link dropdown-toggle text-dark fw-medium"
+                      id="userMenu"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                       style={{ cursor: 'pointer' }}
+                        >
+                      Actions
+                      </span>
+                  <ul className="dropdown-menu dropdown-menu-end animate-dropdown" aria-labelledby="userMenu">
                     <li><Link className="dropdown-item" to="/">Messages</Link></li>
                     <li><Link className="dropdown-item" to="/accreq">Accept Friends</Link></li>
                     <li><Link className="dropdown-item" to="/req">Req Friends</Link></li>
