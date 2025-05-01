@@ -49,7 +49,7 @@ function Navbar() {
                   />
                   <span className="ms-2 fw-medium text-dark">{username}</span>
                 </li>
-           </>)
+           </>)}
         <button
           className="navbar-toggler border-0"
           type="button"
