@@ -4,11 +4,15 @@ import './Navbar.css';
 
 function Navbar() {
   const navi = useNavigate();
+  const username = localStorage.getItem('name');
+  const userImage = localStorage.getItem('image');
 
   const logout = () => {
     localStorage.removeItem('token');
     localStorage.removeItem('token1');
     localStorage.removeItem('grptoken');
+    localStorage.removeItem('image');
+    localStorage.removeItem('name');
     navi('/login');
   };
 
@@ -33,79 +37,47 @@ function Navbar() {
               {!localStorage.getItem('token') ? (
                 <>
                   <li className="nav-item">
-                    <Link
-                      className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
-                      to="/about"
-                    >
-                      About
-                    </Link>
+                    <Link className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link" to="/about">About</Link>
                   </li>
                   <li className="nav-item">
-                    <Link
-                      className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
-                      to="/login"
-                    >
-                      Login
-                    </Link>
+                    <Link className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link" to="/login">Login</Link>
                   </li>
                   <li className="nav-item">
-                    <Link
-                      className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
-                      to="/signup"
-                    >
-                      Signup
-                    </Link>
+                    <Link className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link" to="/signup">Signup</Link>
                   </li>
                 </>
               ) : (
                 <>
                   <li className="nav-item">
-                    <Link
-                      className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
-                      to="/accreq"
-                    >
-                      Accept friends
-                    </Link>
+                    <Link className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link" to="/accreq">Accept friends</Link>
                   </li>
                   <li className="nav-item">
-                    <Link
-                      className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
-                      to="/req"
-                    >
-                      Req friends
-                    </Link>
+                    <Link className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link" to="/req">Req friends</Link>
                   </li>
                   <li className="nav-item">
-                    <Link
-                      className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
-                      to="/"
-                    >
-                      Messages
-                    </Link>
+                    <Link className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link" to="/">Messages</Link>
                   </li>
                   <li className="nav-item">
-                    <Link
-                      className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
-                      to="/grpfrt"
-                    >
-                      Groups
-                    </Link>
+                    <Link className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link" to="/grpfrt">Groups</Link>
                   </li>
                   <li className="nav-item">
-                    <Link
-                      className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
-                      to="/crgrp"
-                    >
-                      Create Grp
-                    </Link>
+                    <Link className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link" to="/crgrp">Create Grp</Link>
                   </li>
-                   <li className="nav-item">
-                    <Link
-                      className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link"
-                      to="/about"
-                    >
-                      About
-                    </Link>
+                  <li className="nav-item">
+                    <Link className="nav-link fw-medium text-dark px-3 transition-colors animate-nav-link" to="/about">About</Link>
+                  </li>
+                  <li className="nav-item d-flex align-items-center px-2">
+                    {userImage && (
+                      <img
+                        src={userImage}
+                        alt="User"
+                        className="rounded-circle"
+                        width="35"
+                        height="35"
+                        style={{ objectFit: 'cover', marginRight: '8px' }}
+                      />
+                    )}
+                    <span className="fw-medium text-dark me-3">{username}</span>
                   </li>
                   <li className="nav-item">
                     <button
