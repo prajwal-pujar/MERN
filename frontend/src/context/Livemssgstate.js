@@ -10,11 +10,12 @@ const LivemssgState = (props) =>{
     const [sento , setSento] = useState([])
     const [loading, setLoading] = useState(false);
      const [friends , setFriends] = useState([])
+    const [tok , setTok] = useState(0)
 
 
 
     const setSent =(index)=>{
-     
+     setTok(index)
       localStorage.setItem("token1" , sento[index])
       const a = localStorage.getItem("token1")
 
@@ -239,7 +240,7 @@ const LivemssgState = (props) =>{
 
     
     return(
-        <Livemssgcontext.Provider value = {{messages ,friends, users, auth , fetchdata , senddata , getusers , setToken , sendreq , getreq ,req , setSent , accept,getfriends,loading}}>
+        <Livemssgcontext.Provider value = {{messages ,friends, users, auth , fetchdata , senddata , getusers , setToken , sendreq , getreq ,req , setSent , accept,getfriends,loading , tok}}>
             {props.children}
         </Livemssgcontext.Provider>
     );
