@@ -82,8 +82,8 @@ router.get('/fetch'  , fetchmuser , async(req , res)=>{
 router.post("/req", fetchmuser, async (req, res) => {
     try {
         
-        const { user1, user2 } = req;
-
+         const user1 = req.user1
+        const user2 = req.user2
         // Check if already friends
         const alreadyFriends = await Friends.findOne({
             user: user1,
