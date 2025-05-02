@@ -130,6 +130,7 @@ const LivemssgState = (props) =>{
 
     const sendreq = async() =>{
       const a = localStorage.getItem("token1")
+      console.log(a)
       let auth = localStorage.getItem("token")
         try {
             const response = await fetch('https://mern-zeta-nine.vercel.app/mssg/req', {
