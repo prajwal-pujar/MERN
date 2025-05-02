@@ -39,7 +39,7 @@ export default function Mssg() {
 
   return (
     <div className="chat-container">
-      {image && nam && && (
+      {image && nam  && (
         <div className="user-info d-flex align-items-center justify-content-center mb-3">
           <img
             src={image}
