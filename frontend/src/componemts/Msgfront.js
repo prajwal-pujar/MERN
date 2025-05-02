@@ -11,7 +11,7 @@ function Msgfront() {
     }, []);
 
     const sub = async(index) => {
-        swait setToken(index);
+        await setToken(index);
         setCred(index)
         navigate("/musg");
     };
