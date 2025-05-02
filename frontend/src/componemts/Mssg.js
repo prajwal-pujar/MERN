@@ -43,7 +43,7 @@ export default function Mssg() {
           {messages.map((msg, index) => (
             <div
               key={index}
-              className={`message ${msg.sender === "You" ? "sent" : "received"}`}
+              className={`message ${msg.name === localStorage.getItem("name") ? "sent" : "received"}`}
             >
               
               <span className="message-text">{msg.name.charAt(0).toUpperCase() + msg.name.slice(1)} : : {msg.text}</span>
