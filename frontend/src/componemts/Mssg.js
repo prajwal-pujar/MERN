@@ -39,7 +39,7 @@ export default function Mssg() {
 
   return (
     <div className="chat-container">
-      { image && nam  && (
+    
         <div className="user-info d-flex align-items-center justify-content-center mb-3">
           <img
             src={image}
@@ -48,7 +48,7 @@ export default function Mssg() {
           />
           <span className="ms-2 fw-medium text-dark">{nam}</span>
         </div>
-      )}
+   
 
       <div className="chat-box animate-chat-box" ref={chatBoxRef}>
         {messages.map((msg, index) => (
