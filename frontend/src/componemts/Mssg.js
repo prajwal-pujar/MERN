@@ -3,7 +3,7 @@ import "./Mssg.css";
 import Livemssgcontext from "../context/LivemssgContext";
 
 export default function Mssg() {
-  const { messages, fetchdata, senddata } = useContext(Livemssgcontext);
+  const { messages, fetchdata, senddata ,token , friends} = useContext(Livemssgcontext);
   const [input, setInput] = useState("");
   const chatBoxRef = useRef(null);
 
