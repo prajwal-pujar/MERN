@@ -39,6 +39,8 @@ export default function Mssg() {
     <div>
       <div className="chat-container">
           <li className="nav-item d-flex align-items-center ms-3">
+{friends[token] && (
+  <>
     <img
       src={friends[token].image}
       alt="User"
@@ -48,6 +50,8 @@ export default function Mssg() {
       style={{ objectFit: 'cover' }}
     />
     <span className="ms-2 fw-medium text-dark">{friends[token].name}</span>
+  </>
+)}
   </li>
         <div className="chat-box animate-chat-box" ref={chatBoxRef}>
           {messages.map((msg, index) => (
