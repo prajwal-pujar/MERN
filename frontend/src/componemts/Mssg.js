@@ -3,7 +3,7 @@ import "./Mssg.css";
 import Livemssgcontext from "../context/LivemssgContext";
 
 export default function Mssg() {
-  const { messages, fetchdata, senddata ,token , friends} = useContext(Livemssgcontext);
+  const { messages, fetchdata, senddata ,tok , friends} = useContext(Livemssgcontext);
   const [input, setInput] = useState("");
   const chatBoxRef = useRef(null);
 
@@ -39,17 +39,17 @@ export default function Mssg() {
     <div>
       <div className="chat-container">
           <li className="nav-item d-flex align-items-center ms-3">
-{friends[token] && (
+{friends[tok] && (
   <>
     <img
-      src={friends[token].image}
+      src={friends[tok].image}
       alt="User"
       className="rounded-circle"
       width="35"
       height="35"
       style={{ objectFit: 'cover' }}
     />
-    <span className="ms-2 fw-medium text-dark">{friends[token].name}</span>
+    <span className="ms-2 fw-medium text-dark">{friends[tok].name}</span>
   </>
 )}
   </li>
