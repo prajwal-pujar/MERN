@@ -3,15 +3,16 @@ import Livemssgcontext from '../context/LivemssgContext';
 import { useNavigate } from "react-router-dom";
 import "./Msgfront.css"
 function Msgfront() {
-    const { friends, auth, getusers, setToken ,getfriends , loading } = useContext(Livemssgcontext);
+    const { friends, auth, getusers, setToken ,getfriends , loading , setCred } = useContext(Livemssgcontext);
     const navigate = useNavigate();
 
     useEffect(() => {
         getfriends()
     }, []);
 
-    const sub = (index) => {
-        setToken(index);
+    const sub = async(index) => {
+        swait setToken(index);
+        setCred(index)
         navigate("/musg");
     };
 
