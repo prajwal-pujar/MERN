@@ -50,7 +50,7 @@ export default function Mssg() {
       <span className="ms-2 fw-medium text-dark">{friends[tok].name}</span>
     </>
   )}
-    </div>
+    
 </div>
 
 {friends[tok] && (
