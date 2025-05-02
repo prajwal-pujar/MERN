@@ -27,7 +27,7 @@ app.use('/mssg', require('./routes/livemssg'));
 app.use('/upload', require('./routes/upload'));
 
 app.get('/', (req, res) => {
-  res.send('Hello, World!');
+  res.send('HelloWorld!');
 });
 
 module.exports = app;
