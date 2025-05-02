@@ -57,7 +57,7 @@ export default function Mssg() {
             }`}
           >
             <span className="message-text">
-              {msg.name.charAt(0).toUpperCase() + msg.name.slice(1)} : : {msg.text}
+        {msg.text}
             </span>
           </div>
         ))}
