@@ -15,14 +15,14 @@ const LivemssgState = (props) =>{
 
 
     const setSent =(index)=>{
-     setTok(index)
+     
       localStorage.setItem("token1" , sento[index])
       const a = localStorage.getItem("token1")
 
     }
 
     const setToken = (index)=>{
- 
+      setTok(index)
       localStorage.setItem("token1" , auth[index])
       const a = localStorage.getItem("token1")
      
