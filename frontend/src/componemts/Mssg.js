@@ -4,6 +4,7 @@ import Livemssgcontext from "../context/LivemssgContext";
 
 export default function Mssg() {
   const { messages, fetchdata, senddata, tok, friends } = useContext(Livemssgcontext);
+  const storedFriend = JSON.parse(localStorage.getItem("fri"));
   const [input, setInput] = useState("");
   const chatBoxRef = useRef(null);
 
@@ -40,11 +41,11 @@ export default function Mssg() {
       {friends[tok] && (
         <div className="user-info d-flex align-items-center justify-content-center mb-3">
           <img
-            src={friends[tok].image}
+            src={storedFriend.image}
             alt="User"
             className="rounded-circle user-img"
           />
-          <span className="ms-2 fw-medium text-dark">{friends[tok].name}</span>
+          <span className="ms-2 fw-medium text-dark">{storedFriend.name}</span>
         </div>
       )}
 
