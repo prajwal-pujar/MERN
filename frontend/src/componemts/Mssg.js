@@ -3,7 +3,7 @@ import "./Mssg.css";
 import Livemssgcontext from "../context/LivemssgContext";
 
 export default function Mssg() {
-  const { messages, fetchdata, senddata , clearMessages()} = useContext(Livemssgcontext);
+  const { messages, fetchdata, senddata , clearMessages} = useContext(Livemssgcontext);
   const image = localStorage.getItem("friim");
    const nam = localStorage.getItem("frinam");
   const [input, setInput] = useState("");
