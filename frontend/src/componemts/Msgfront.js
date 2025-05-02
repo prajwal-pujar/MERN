@@ -44,7 +44,7 @@ function Msgfront() {
                                     onClick={() => sub(index)} 
                                     className="btn btn-outline-primary btn-sm px-3 py-1"
                                 >
-                                    Message
+                                    Chat
                                 </button>
                             </div>
                         </div>
