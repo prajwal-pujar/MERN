@@ -39,6 +39,20 @@ export default function Mssg() {
     <div>
       <div className="chat-container">
           <li className="nav-item d-flex align-items-center ms-3">
+<div className="user-info d-flex align-items-center justify-content-center mb-2">
+  {friends[tok] && (
+    <>
+      <img
+        src={friends[tok].image}
+        alt="User"
+        className="rounded-circle user-img"
+      />
+      <span className="ms-2 fw-medium text-dark">{friends[tok].name}</span>
+    </>
+  )}
+    </div>
+</div>
+
 {friends[tok] && (
   <>
     <img
