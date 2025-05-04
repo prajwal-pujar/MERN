@@ -12,11 +12,14 @@ function Req() {
     
 useEffect(() => {
  
-    getusers(); // wait for users to be fetched
+    getusers(); 
+    
     
 }, []);
 
-
+ const nonFriendUsers = users.filter(user => 
+        !friends.some(friend => friend.name === user.name)
+    );
  
 
 const sub = async (index) => {
@@ -54,13 +57,13 @@ const sub = async (index) => {
           </div>
           <p className="text-muted mt-2">Fetching users...</p>
         </div>
-      ) : users.length === 0 ? (
+      ) : nonFriendUsers.length === 0 ? (
         <div className="text-center">
           <p className="text-muted fs-4">No users found</p>
         </div>
       ) :
            ( <div className="row justify-content-center g-4">
-                {users.map((ele, index) => (
+                {nonFriendUsers.map((ele, index) => (
                     <div key={index} className="col-12 col-md-6 col-lg-4">
                         <div className="card border-0 shadow-sm rounded-3 overflow-hidden">
                             <div className="card-body p-4 d-flex align-items-center justify-content-between">
