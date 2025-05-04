@@ -43,7 +43,7 @@ const LivemssgState = (props) =>{
       let auth = localStorage.getItem("token")
       setLoading(true); 
       try {
-          if(!friendsFetched){
+        
           const response = await fetch('https://mern-zeta-nine.vercel.app/mssg/getusers', {
             method: 'GET',
             headers: {
@@ -60,8 +60,8 @@ const LivemssgState = (props) =>{
           const data = await response.json();
           setUsers(data.users)
           setAuth(data.auth)
-          setFriendsFetched(true)
-          }
+         
+          
         } catch (error) {
           console.error('Error:', error);
         }finally {
@@ -221,9 +221,12 @@ const LivemssgState = (props) =>{
     }
 
     const getfriends = async() =>{
+      if (friendsFetched) return;
       let auth = localStorage.getItem("token")
+      
       setLoading(true); 
         try {
+           
             const response = await fetch('https://mern-zeta-nine.vercel.app/mssg/getfriends', {
               method: 'GET',
               headers: {
@@ -240,7 +243,7 @@ const LivemssgState = (props) =>{
             const data = await response.json();
     
             setFriends(data.friends)
-           
+            setFriendsFetched(true)
            
             setAuth(data.auth)
          
@@ -249,6 +252,7 @@ const LivemssgState = (props) =>{
           }finally {
             setLoading(false); // Stop loading
           }
+          
     }
 
 
