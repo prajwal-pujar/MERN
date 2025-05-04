@@ -15,16 +15,15 @@ const Friends = require("../modules/Friends")
 
 router.get('/getusers' , fetchuser , async(req , res)=>{
     try {
-        const use = await User.find({ _id: { $ne: req.user } })
-        .select('_id name image');
-        cosnt users = use.map(({ name, image }) => ({ name, image }));
-        let auth = []
-        auth = use.map((ele)=>{
-            var token = jwt.sign({ user : ele._id }, jwtsecreat);
-            return token
-        })
-       
-        res.json({users , auth});
+     const use = await User.find({ _id: { $ne: req.user } }).select('_id name image');
+
+    const users = use.map(({ name, image }) => ({ name, image }));
+
+    const auth = use.map((ele) => {
+        return jwt.sign({ user: ele._id }, jwtsecreat);
+    });
+
+    res.json({ users, auth });
     } catch (error) {
         console.log(error)
         res.status(500).json({ error: "Internal Server Error" });
