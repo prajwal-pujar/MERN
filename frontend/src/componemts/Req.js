@@ -19,15 +19,23 @@ useEffect(() => {
 
  
 
-    const sub = async (index) => {
+const sub = async (index) => {
+    // Immediately disable the button
+    setDisabledIndexes(prev => [...prev, index]);
+    setMessage("Sending...");
+
+    try {
         await setToken(index);
         await sendreq();
         setMessage("Friend request sent ✅");
+    } catch (error) {
+        // If request fails, re-enable the button
+        setDisabledIndexes(prev => prev.filter(i => i !== index));
+        setMessage("Failed to send request ❌");
+    }
 
-        setDisabledIndexes(prev => [...prev, index]);
-
-        setTimeout(() => setMessage(""), 3000);
-    };
+    setTimeout(() => setMessage(""), 3000);
+};
 
     return (
         <div className="container py-5">
