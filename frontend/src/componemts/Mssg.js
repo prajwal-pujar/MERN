@@ -9,21 +9,21 @@ export default function Mssg() {
   const [input, setInput] = useState("");
   const chatBoxRef = useRef(null);
 
-  useEffect(() => {
-    clearMessages();
-    fetchdata();
-    const fetchInterval = setInterval(() => {
-      fetchdata().then(() => {
-        setTimeout(() => {
-          if (chatBoxRef.current) {
-            chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-          }
-        }, 5000);
-      });
-    }, 5000);
+useEffect(() => {
+  clearMessages();
+  fetchdata().then(() => {
+    if (chatBoxRef.current) {
+      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+    }
+  });
 
-    return () => clearInterval(fetchInterval);
-  }, []);
+  const fetchInterval = setInterval(() => {
+    fetchdata();
+  }, 3000); // Optionally reduce to 3s
+
+  return () => clearInterval(fetchInterval);
+}, []);
+
 
   const sendMessage = () => {
     if (input.trim() !== "") {
