@@ -1,12 +1,14 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect , useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
+import Livemssgcontext from '../context/LivemssgContext';
 
 function Navbar() {
   const navigate = useNavigate();
   const isLoggedIn = !!localStorage.getItem('token');
   const username = localStorage.getItem('name');
   const userImage = localStorage.getItem('image') || 'https://via.placeholder.com/35';
+  const {resetState} = useContext(Livemssgcontext)
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -14,6 +16,7 @@ function Navbar() {
   const toggleDropdown = () => setDropdownOpen(prev => !prev);
 
   const logout = () => {
+    resetState();
     localStorage.clear();
     navigate('/login');
   };
