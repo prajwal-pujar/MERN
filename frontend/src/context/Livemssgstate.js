@@ -11,6 +11,7 @@ const LivemssgState = (props) =>{
     const [loading, setLoading] = useState(false);
      const [friends , setFriends] = useState([])
     const [tok , setTok] = useState(0)
+    const [friendsFetched, setFriendsFetched] = useState(false);
 
 
 
@@ -42,6 +43,7 @@ const LivemssgState = (props) =>{
       let auth = localStorage.getItem("token")
       setLoading(true); 
       try {
+          if(!friendsFetched){
           const response = await fetch('https://mern-zeta-nine.vercel.app/mssg/getusers', {
             method: 'GET',
             headers: {
@@ -58,6 +60,8 @@ const LivemssgState = (props) =>{
           const data = await response.json();
           setUsers(data.users)
           setAuth(data.auth)
+          setFriendsFetched(true)
+          }
         } catch (error) {
           console.error('Error:', error);
         }finally {
