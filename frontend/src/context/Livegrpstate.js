@@ -7,6 +7,7 @@ const Livegrpstate = (props) =>{
    const [auth , setAuth] = useState([])
    const[messages , setMessages] = useState([])
     const [loading, setLoading] = useState(false);
+   const[gro , setGro] = useState(false)
 
     const set = (index) =>{
       localStorage.setItem("grptoken" , auth[index])
@@ -42,6 +43,7 @@ const Livegrpstate = (props) =>{
     }
 
     const get = async() =>{
+       if(gro) return;
        setLoading(true)
       let a = localStorage.getItem('token')
       try {
@@ -60,6 +62,7 @@ const Livegrpstate = (props) =>{
           }
         
           const data = await response.json();
+          setGro(true)
           setAuth(data.token1)
           const names = data.data.map(item => item.name);
           setUsers(names)
