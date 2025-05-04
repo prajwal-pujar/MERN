@@ -3,53 +3,47 @@ import "./Mssg.css";
 import Livemssgcontext from "../context/LivemssgContext";
 
 export default function Mssg() {
-  const { messages, fetchdata, senddata , clearMessages} = useContext(Livemssgcontext);
+  const { messages, fetchdata, senddata, clearMessages } = useContext(Livemssgcontext);
   const image = localStorage.getItem("friim");
-   const nam = localStorage.getItem("frinam");
+  const nam = localStorage.getItem("frinam");
   const [input, setInput] = useState("");
   const chatBoxRef = useRef(null);
 
-useEffect(() => {
-  clearMessages();
-  fetchdata().then(() => {
-    if (chatBoxRef.current) {
-      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-    }
-  });
+  useEffect(() => {
+    clearMessages();
 
-  const fetchInterval = setInterval(() => {
-    fetchdata();
-  }, 3000); // Optionally reduce to 3s
+    
+    fetchdata().then(() => {
+      if (chatBoxRef.current) {
+        chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+      }
+    });
 
-  return () => clearInterval(fetchInterval);
-}, []);
+  
+    const fetchInterval = setInterval(() => {
+      fetchdata();
+    }, 5000);
 
+    return () => clearInterval(fetchInterval);
+  }, []);
 
   const sendMessage = () => {
     if (input.trim() !== "") {
       senddata(input);
       setInput("");
 
-      setTimeout(() => {
-        if (chatBoxRef.current) {
-          chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-        }
-      }, 100);
+      if (chatBoxRef.current) {
+        chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+      }
     }
   };
 
   return (
     <div className="chat-container">
-    
-        <div className="user-info d-flex align-items-center justify-content-center mb-3">
-          <img
-            src={image}
-            alt="User"
-            className="rounded-circle user-img"
-          />
-          <span className="ms-2 fw-medium text-dark">{nam}</span>
-        </div>
-   
+      <div className="user-info d-flex align-items-center justify-content-center mb-3">
+        <img src={image} alt="User" className="rounded-circle user-img" />
+        <span className="ms-2 fw-medium text-dark">{nam}</span>
+      </div>
 
       <div className="chat-box animate-chat-box" ref={chatBoxRef}>
         {messages.map((msg, index) => (
@@ -59,9 +53,7 @@ useEffect(() => {
               msg.name === localStorage.getItem("name") ? "sent" : "received"
             }`}
           >
-            <span className="message-text">
-        {msg.text}
-            </span>
+            <span className="message-text">{msg.text}</span>
           </div>
         ))}
       </div>
