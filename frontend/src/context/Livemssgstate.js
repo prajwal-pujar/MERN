@@ -12,6 +12,9 @@ const LivemssgState = (props) =>{
      const [friends , setFriends] = useState([])
     const [tok , setTok] = useState(0)
     const [friendsFetched, setFriendsFetched] = useState(false);
+    const [usersFetched, setUsersFetched] = useState(false);
+    const [friendsFetchedRq, setFriendsFetchedRq] = useState(false);
+    
 
 
 
@@ -40,6 +43,7 @@ const LivemssgState = (props) =>{
     }
 
     const getusers = async() =>{
+        if(usersFetched) return;
       let auth = localStorage.getItem("token")
       setLoading(true); 
       try {
@@ -58,6 +62,7 @@ const LivemssgState = (props) =>{
           }
         
           const data = await response.json();
+          setUsersFetched(true)
           setUsers(data.users)
           setAuth(data.auth)
          
@@ -164,6 +169,7 @@ const LivemssgState = (props) =>{
     }
 
     const getreq = async() =>{
+      if(friendsFetchedRq) return;
       setLoading(true); 
       let auth = localStorage.getItem("token")
         try {
@@ -181,6 +187,7 @@ const LivemssgState = (props) =>{
             }
           
             const data = await response.json();
+            setFriendsFetchedRq(true)
             setReq(data.requests)
             setSento(data.auth)
 
