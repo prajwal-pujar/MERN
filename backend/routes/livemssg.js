@@ -15,11 +15,11 @@ const Friends = require("../modules/Friends")
 
 router.get('/getusers' , fetchuser , async(req , res)=>{
     try {
-        const users = await User.find({ _id: { $ne: req.user } })
-        .select('-_id -password -email');
-        const user2 = await User.find({ _id: { $ne: req.user } })
+        const use = await User.find({ _id: { $ne: req.user } })
+        .select('_id name image');
+        cosnt users = use.map(({ name, image }) => ({ name, image }));
         let auth = []
-        auth = user2.map((ele)=>{
+        auth = use.map((ele)=>{
             var token = jwt.sign({ user : ele._id }, jwtsecreat);
             return token
         })
