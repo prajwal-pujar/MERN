@@ -10,7 +10,7 @@ export default function Mssg() {
   const chatBoxRef = useRef(null);
 
   useEffect(() => {
-    clearMessages();
+   
 
     
     fetchdata().then(() => {
@@ -24,7 +24,10 @@ export default function Mssg() {
       fetchdata();
     }, 5000);
 
-    return () => clearInterval(fetchInterval);
+    return () => {
+       clearMessages();
+      clearInterval(fetchInterval);
+    }
   }, []);
 
   const sendMessage = () => {
