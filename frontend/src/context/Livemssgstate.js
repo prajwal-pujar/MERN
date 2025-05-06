@@ -43,6 +43,15 @@ const LivemssgState = (props) =>{
 
     }
 
+    const removeReq = (index) => {
+  setReq(prev => {
+    const updated = [...prev];
+    updated.splice(index, 1);
+    return updated;
+  });
+};
+
+
     const setCred = (index) =>{
     localStorage.setItem("friim" , friends[index].image)
      localStorage.setItem("frinam" , friends[index].name)
@@ -280,7 +289,7 @@ const LivemssgState = (props) =>{
 
     
     return(
-        <Livemssgcontext.Provider value = {{messages ,friends, users, auth , fetchdata , senddata , getusers , resetState ,setToken , setCred , clearMessages , sendreq , getreq ,req , setSent , accept,getfriends,loading , tok}}>
+        <Livemssgcontext.Provider value = {{messages , removeReq ,friends, users, auth , fetchdata , senddata , getusers , resetState ,setToken , setCred , clearMessages , sendreq , getreq ,req , setSent , accept,getfriends,loading , tok}}>
             {props.children}
         </Livemssgcontext.Provider>
     );
