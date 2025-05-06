@@ -101,6 +101,17 @@ router.post('/login' ,[
     
 })
 
+
+router.post('/logout', fetchuser, async (req, res) => {
+  try {
+    await User.updateOne({ _id: req.user }, { $set: { isOnline: false } });
+    res.json({ success: true, message: 'Logged out and status updated' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
 router.get('/getuser' ,fetchuser, async(req,res)=>{
     try{
         const user = req.user
