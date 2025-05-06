@@ -175,14 +175,20 @@ router.post("/req", fetchmuser, async (req, res) => {
  // Get Friends
  router.get("/getfriends", fetchuser, async (req, res) => {
      try {
-         const userId = req.user;
- 
-           const friendsData = await Friends.find({ user: userId }).select('name image friendid');
+         try {
+    const userId = req.user;
 
-    const friends = friendsData.map(({ name, image }) => ({ name, image }));
+    const friendsData = await Friends.find({ user: userId })
+      .select('name image friendid')
+      .populate('friendid', 'isonline'); 
+    const friends = friendsData.map(({ name, image, friendid }) => ({
+      name,
+      image,
+      isonline: friendid?.isonline || false
+    }));
 
     const auth = friendsData.map(({ friendid }) =>
-        jwt.sign({ user: friendid }, jwtsecreat)
+      jwt.sign({ user: friendid._id }, jwtsecreat)
     );
 
     res.json({ friends, auth });
