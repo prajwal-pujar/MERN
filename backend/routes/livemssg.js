@@ -173,14 +173,14 @@ router.post("/req", fetchmuser, async (req, res) => {
  
  
  // Get Friends
- router.get("/getfriends", fetchuser, async (req, res) => {
-     try {
-         try {
+router.get("/getfriends", fetchuser, async (req, res) => {
+  try {
     const userId = req.user;
 
     const friendsData = await Friends.find({ user: userId })
       .select('name image friendid')
       .populate('friendid', 'isonline'); 
+
     const friends = friendsData.map(({ name, image, friendid }) => ({
       name,
       image,
@@ -192,11 +192,12 @@ router.post("/req", fetchmuser, async (req, res) => {
     );
 
     res.json({ friends, auth });
-     } catch (err) {
-         console.log(err);
-         res.status(500).json({ error: "Internal Server Error" });
-     }
- });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
  
 
 
