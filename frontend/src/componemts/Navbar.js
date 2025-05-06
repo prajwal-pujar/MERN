@@ -15,7 +15,7 @@ function Navbar() {
 
   const toggleDropdown = () => setDropdownOpen(prev => !prev);
 
-  const logout = () => {
+  const logout = async() => {
     let a = localStorage.getItem("token")
     try {
       const response = await fetch('https://mern-zeta-nine.vercel.app/auth/logout', {
