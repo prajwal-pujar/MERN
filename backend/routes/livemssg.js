@@ -179,12 +179,12 @@ router.get("/getfriends", fetchuser, async (req, res) => {
 
     const friendsData = await Friends.find({ user: userId })
       .select('name image friendid')
-      .populate('friendid', 'isonline'); 
+      .populate('friendid', 'isOnline'); 
 
     const friends = friendsData.map(({ name, image, friendid }) => ({
       name,
       image,
-      isonline: friendid?.isonline || false
+      isonline: friendid?.isOnline || false
     }));
 
     const auth = friendsData.map(({ friendid }) =>
