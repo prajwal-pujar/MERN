@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import Livemssgcontext from '../context/LivemssgContext';
 
 function Accreq() {
-    const { getreq, req, setSent, accept, loading } = useContext(Livemssgcontext);
+    const { getreq, req, setSent, accept, loading , removeReq  } = useContext(Livemssgcontext);
     const [message, setMessage] = useState("");
     const [clicked, setClicked] = useState({});
 
@@ -20,9 +20,8 @@ function Accreq() {
         try {
             await setSent(index);
             await accept();
-            let updated = [...req];
-            updated.splice(index, 1);
-            getreq(updated);
+            removeReq(index);
+
             setMessage("Friend request accepted ✅");
         } catch (err) {
             setMessage("Failed to accept request ❌");
