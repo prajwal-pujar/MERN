@@ -22,8 +22,9 @@ function Navbar() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+           'auth-token' : a, 
         },
-        auth-token : a, 
+       
         mode: "cors",
        
     
