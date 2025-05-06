@@ -75,8 +75,8 @@ router.post('/login' ,[
         const {email , password} = req.body
        const user = await User.findOneAndUpdate(
   { email },
-  { $set: { isonline: true } },
-  { new: true, projection: { password: 1, _id: 1, image: 1, name: 1, isonline: 1 } }
+  { $set: { isOnline: true } },
+  { new: true, projection: { password: 1, _id: 1, image: 1, name: 1, isOnline: 1 } }
 );
 
         if(!user){
