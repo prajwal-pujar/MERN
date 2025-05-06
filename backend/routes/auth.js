@@ -73,7 +73,7 @@ router.post('/login' ,[
         }
 
         const {email , password} = req.body
-        const user = await User.findOne({ email }, {  password: 1, _id: 1 , image:1 , name:1 });
+        const user = await User.findOne({ email }, {  password: 1, _id: 1 , image:1 , name:1 , isonline: 1  });
 
         if(!user){
             return res.status(400).json({ errors: "EMIAL DOESNOT EXIST" });
@@ -87,7 +87,7 @@ router.post('/login' ,[
         else
         {
             var token = jwt.sign({ user : user._id }, jwtsecreat);
-            res.json({name:user.name , image:user.image , token})
+            res.json({name:user.name , image:user.image , iOn: user.isonline , token})
         }   
     }
     catch(err){
