@@ -20,7 +20,7 @@ router.get('/getusers' , fetchuser , async(req , res)=>{
     const users = use.map(({ name, image }) => ({ name, image }));
 
     const auth = use.map((ele) => {
-        return jwt.sign({ user: ele._id }, jwtsecreat);
+        return jwt.sign({ user: ele._id }, jwtsecreat)
     });
 
     res.json({ users, auth });
