@@ -16,6 +16,26 @@ function Navbar() {
   const toggleDropdown = () => setDropdownOpen(prev => !prev);
 
   const logout = () => {
+    let a = localStorage.getItem("token")
+    try {
+      const response = await fetch('https://mern-zeta-nine.vercel.app/auth/logout', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        auth-token : a, 
+        mode: "cors",
+       
+    
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+    
     resetState();
     localStorage.clear();
     navigate('/login');
