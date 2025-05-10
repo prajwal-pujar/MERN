@@ -1,72 +1,52 @@
 const express = require('express');
 const http = require('http');
-const mongoose = require('mongoose');
+const socketIo = require('socket.io');
 const cors = require('cors');
-const { Server } = require('socket.io');
-const connect = require('./mongodb');
-
-// Connect to MongoDB
-connect();
 
 const app = express();
+
+// Create HTTP server and pass to Socket.IO
 const server = http.createServer(app);
 
-// CORS setup
-const corsOptions = {
-  origin: 'https://mern-6gc8-prajwal-pujars-projects.vercel.app', // Vercel frontend URL
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type', 'auth-token', 'send-token', 'rec-token'],
-};
-app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
-
-// Body parser
-app.use(express.json({ limit: '5mb' }));
-
-// Routes
-app.use('/auth', require('./routes/auth'));
-app.use('/mssg', require('./routes/livemssg'));
-app.use('/upload', require('./routes/upload'));
-
-// Test route
-app.get('/', (req, res) => {
-  res.send('HelloWorld!');
-});
-
-// Socket.IO setup
-const io = new Server(server, {
+// Initialize Socket.IO with CORS configuration
+const io = socketIo(server, {
   cors: {
-    origin: 'https://mern-6gc8-prajwal-pujars-projects.vercel.app', // Ensure this matches your frontend URL
+    origin: ['https://mern-6gc8-prajwal-pujars-projects.vercel.app'],  // Allow specific origin
     methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type'],
+    credentials: true,  // Optional: if you need credentials support (cookies, authorization headers)
   },
 });
 
+// Enable CORS for Express
+app.use(cors({
+  origin: 'https://mern-6gc8-prajwal-pujars-projects.vercel.app',  // Allow specific origin
+  methods: 'GET,POST',
+  credentials: true,  // Optional: Allow credentials (cookies, headers)
+}));
+
+// Sample route
+app.get('/', (req, res) => {
+  res.send('Hello from the server!');
+});
+
+// Set up a connection handler for Socket.IO
 io.on('connection', (socket) => {
-  console.log(`Socket connected: ${socket.id}`);
-
-  socket.on('join_room', (room) => {
-    socket.join(room);
-    console.log(`User joined room: ${room}`);
-  });
-
-  socket.on('leave_room', (room) => {
-    socket.leave(room);
-    console.log(`User left room: ${room}`);
-  });
-
-  socket.on('send_message', (data) => {
-    const { room, text, sender, receiver } = data;
-    console.log(`Message from ${sender} to ${receiver} in ${room}: ${text}`);
-    io.to(room).emit('receive_message', data);
-  });
-
+  console.log('A user connected');
+  
+  // Handle events from the client
   socket.on('disconnect', () => {
-    console.log(`Socket disconnected: ${socket.id}`);
+    console.log('User disconnected');
+  });
+  
+  // Example event
+  socket.on('chat message', (msg) => {
+    io.emit('chat message', msg);  // Emit to all clients
   });
 });
 
-// Start server
+// Start the server
 const PORT = process.env.PORT || 5000;
 server.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server is running on port ${PORT}`);
 });
