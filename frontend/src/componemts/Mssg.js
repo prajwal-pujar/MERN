@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { io } from "socket.io-client";
 import "./Mssg.css";
 
-const socket = io("http://localhost:5000");
+const socket = io("https://mern-zeta-nine.vercel.app");
 
 export default function Mssg() {
   const myName = localStorage.getItem("name");
