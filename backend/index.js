@@ -13,8 +13,8 @@ const server = http.createServer(app);
 
 // CORS setup
 const corsOptions = {
-  origin: 'https://mern-6gc8-prajwal-pujars-projects.vercel.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  origin: 'https://mern-6gc8-prajwal-pujars-projects.vercel.app', // Vercel frontend URL
+  methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type', 'auth-token', 'send-token', 'rec-token'],
 };
 app.use(cors(corsOptions));
@@ -33,10 +33,10 @@ app.get('/', (req, res) => {
   res.send('HelloWorld!');
 });
 
-// Socket.io setup
+// Socket.IO setup
 const io = new Server(server, {
   cors: {
-    origin: 'https://mern-6gc8-prajwal-pujars-projects.vercel.app',
+    origin: 'https://mern-6gc8-prajwal-pujars-projects.vercel.app', // Ensure this matches your frontend URL
     methods: ['GET', 'POST'],
   },
 });
