@@ -1,60 +1,69 @@
-import { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { io } from "socket.io-client";
 import "./Mssg.css";
-import Livemssgcontext from "../context/LivemssgContext";
+
+const socket = io("http://localhost:5000");
 
 export default function Mssg() {
-  const { messages, fetchdata, senddata, clearMessages } = useContext(Livemssgcontext);
-  const image = localStorage.getItem("friim");
-  const nam = localStorage.getItem("frinam");
+  const myName = localStorage.getItem("name");
+  const friendName = localStorage.getItem("frinam");
+  const friendImg = localStorage.getItem("friim");
+
   const [input, setInput] = useState("");
+  const [messages, setMessages] = useState([]);
   const chatBoxRef = useRef(null);
 
-  useEffect(() => {
-   
+  const getRoomId = (a, b) => [a, b].sort().join("_");
 
-    
-    fetchdata().then(() => {
-      if (chatBoxRef.current) {
-        chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+  useEffect(() => {
+    const room = getRoomId(myName, friendName);
+    socket.emit("join_room", room);
+
+    socket.on("receive_message", (data) => {
+      if (data.sender === friendName && data.receiver === myName) {
+        setMessages((prev) => [...prev, data]);
       }
     });
 
-  
-    const fetchInterval = setInterval(() => {
-      fetchdata();
-    }, 5000);
-
     return () => {
-       clearMessages();
-      clearInterval(fetchInterval);
-    }
-  }, []);
+      socket.emit("leave_room", room);
+      socket.off("receive_message");
+    };
+  }, [myName, friendName]);
 
   const sendMessage = () => {
     if (input.trim() !== "") {
-      senddata(input);
-      setInput("");
+      const newMsg = {
+        text: input,
+        sender: myName,
+        receiver: friendName,
+        room: getRoomId(myName, friendName)
+      };
 
-      if (chatBoxRef.current) {
-        chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-      }
+      socket.emit("send_message", newMsg);
+      setMessages((prev) => [...prev, newMsg]);
+      setInput("");
     }
   };
+
+  useEffect(() => {
+    if (chatBoxRef.current) {
+      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   return (
     <div className="chat-container">
       <div className="user-info d-flex align-items-center justify-content-center mb-3">
-        <img src={image} alt="User" className="rounded-circle user-img" />
-        <span className="ms-2 fw-medium text-dark">{nam}</span>
+        <img src={friendImg} alt="User" className="rounded-circle user-img" />
+        <span className="ms-2 fw-medium text-dark">{friendName}</span>
       </div>
 
       <div className="chat-box animate-chat-box" ref={chatBoxRef}>
         {messages.map((msg, index) => (
           <div
             key={index}
-            className={`message ${
-              msg.name === localStorage.getItem("name") ? "sent" : "received"
-            }`}
+            className={`message ${msg.sender === myName ? "sent" : "received"}`}
           >
             <span className="message-text">{msg.text}</span>
           </div>
