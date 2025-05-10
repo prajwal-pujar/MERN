@@ -1,52 +1,35 @@
 const express = require('express');
-const http = require('http');
-const socketIo = require('socket.io');
+const app = express();
+const port = 5000;
+const mongoose = require('mongoose');
+const connect = require('./mongodb');
 const cors = require('cors');
 
-const app = express();
+connect();
 
-// Create HTTP server and pass to Socket.IO
-const server = http.createServer(app);
+// CORS configuration
+const corsOptions = {
+origin: 'https://mern-6gc8-prajwal-pujars-projects.vercel.app', 
+methods: ['GET', 'POST', 'PUT', 'DELETE'],
+allowedHeaders: ['Content-Type', 'auth-token', 'send-token', 'rec-token'],
+};
 
-// Initialize Socket.IO with CORS configuration
-const io = socketIo(server, {
-  cors: {
-    origin: ['https://mern-6gc8-prajwal-pujars-projects.vercel.app'],  // Allow specific origin
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type'],
-    credentials: true,  // Optional: if you need credentials support (cookies, authorization headers)
-  },
-});
+// Apply CORS and preflight OPTIONS handling
+app.use(cors(corsOptions));
+app.options('\*', cors(corsOptions));
 
-// Enable CORS for Express
-app.use(cors({
-  origin: 'https://mern-6gc8-prajwal-pujars-projects.vercel.app',  // Allow specific origin
-  methods: 'GET,POST',
-  credentials: true,  // Optional: Allow credentials (cookies, headers)
-}));
+// Increase body size limit to support base64 image uploads
+app.use(express.json({ limit: '5mb' }));
 
-// Sample route
+// Routes
+app.use('/auth', require('./routes/auth'));
+app.use('/mssg', require('./routes/livemssg'));
+app.use('/upload', require('./routes/upload'));
+
 app.get('/', (req, res) => {
-  res.send('Hello from the server!');
+res.send('HelloWorld!');
 });
 
-// Set up a connection handler for Socket.IO
-io.on('connection', (socket) => {
-  console.log('A user connected');
-  
-  // Handle events from the client
-  socket.on('disconnect', () => {
-    console.log('User disconnected');
-  });
-  
-  // Example event
-  socket.on('chat message', (msg) => {
-    io.emit('chat message', msg);  // Emit to all clients
-  });
-});
+module.exports = app;
 
-// Start the server
-const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+combine bith
