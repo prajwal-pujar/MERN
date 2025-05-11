@@ -1,33 +1,33 @@
-import React, { useState, useRef, useEffect , useContext } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 import Livemssgcontext from '../context/LivemssgContext';
 
 function Navbar() {
   const navigate = useNavigate();
+  const { resetState } = useContext(Livemssgcontext);
+
   const isLoggedIn = !!localStorage.getItem('token');
   const username = localStorage.getItem('name');
   const userImage = localStorage.getItem('image') || 'https://via.placeholder.com/35';
-  const {resetState} = useContext(Livemssgcontext)
 
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  const toggleDropdown = () => setDropdownOpen(prev => !prev);
+  const toggleDropdown = () => setDropdownOpen((prev) => !prev);
 
-  const logout = async() => {
+  const logout = () => {
     resetState();
     localStorage.clear();
     navigate('/login');
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
-    function handleClickOutside(event) {
+    const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setDropdownOpen(false);
       }
-    }
+    };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
@@ -35,25 +35,23 @@ function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg bg-white shadow-sm">
       <div className="container py-2">
-        {!isLoggedIn ? (
-  <Link className="navbar-brand fw-bold text-primary" to="/">
-    We$Chat
-  </Link>
-) : (
-   <>
-  <li className="nav-item d-flex align-items-center ms-3">
-    <img
-      src={userImage}
-      alt="User"
-      className="rounded-circle"
-      width="35"
-      height="35"
-      style={{ objectFit: 'cover' }}
-    />
-    <span className="ms-2 fw-medium text-dark">{username}</span>
-  </li>
-    </>
-)}
+        <Link className="navbar-brand fw-bold text-primary" to="/">
+          We$Chat
+        </Link>
+
+        {isLoggedIn && (
+          <div className="d-flex align-items-center ms-3 d-none d-lg-flex">
+            <img
+              src={userImage}
+              alt="User"
+              className="rounded-circle"
+              width="35"
+              height="35"
+              style={{ objectFit: 'cover' }}
+            />
+            <span className="ms-2 fw-medium text-dark">{username}</span>
+          </div>
+        )}
 
         <button
           className="navbar-toggler border-0"
@@ -70,21 +68,27 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarContent">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
             <li className="nav-item">
-              <Link className="nav-link text-dark fw-medium" to="/about">About</Link>
+              <Link className="nav-link text-dark fw-medium" to="/about">
+                About
+              </Link>
             </li>
 
             {!isLoggedIn ? (
               <>
                 <li className="nav-item">
-                  <Link className="nav-link text-dark fw-medium" to="/login">Login</Link>
+                  <Link className="nav-link text-dark fw-medium" to="/login">
+                    Login
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <Link className="nav-link text-dark fw-medium" to="/signup">Signup</Link>
+                  <Link className="nav-link text-dark fw-medium" to="/signup">
+                    Signup
+                  </Link>
                 </li>
               </>
             ) : (
               <>
-                <li className="nav-item position-relative" ref={dropdownRef}>
+                <li className="nav-item position-relative mx-2" ref={dropdownRef}>
                   <button
                     onClick={toggleDropdown}
                     className="btn btn-light fw-medium text-dark d-flex align-items-center"
@@ -102,8 +106,7 @@ function Navbar() {
                   </ul>
                 </li>
 
-
-                <li className="nav-item ms-3">
+                <li className="nav-item">
                   <button className="btn btn-outline-primary" onClick={logout}>
                     Logout
                   </button>
