@@ -1,91 +1,118 @@
-import React, { useEffect, useState } from 'react'
-import { useContext } from 'react'
-import Livemssgcontext from '../context/LivemssgContext'
-import LivegrpContext from '../context/LivegrpConstext'
-
+import React, { useEffect, useState, useContext } from 'react';
+import Livemssgcontext from '../context/LivemssgContext';
+import LivegrpContext from '../context/LivegrpConstext';
+import './Msgfront.css';
 
 function Create() {
-    let {friends ,users, getusers, auth , getfriends} = useContext(Livemssgcontext)
-    let {create} = useContext(LivegrpContext)
-    let ff = localStorage.getItem('token')
-    let [creusers, setCreusers] = useState([ff])
-    let [groupName, setGroupName] = useState('')
-    let [message , setMessage] = useState('')
+  const { friends, getfriends, auth } = useContext(Livemssgcontext);
+  const { create } = useContext(LivegrpContext);
 
-    useEffect(() => {
-        getfriends()
-    }, [])
+  const currentUser = localStorage.getItem('token');
+  const [creusers, setCreusers] = useState([currentUser]);
+  const [groupName, setGroupName] = useState('');
+  const [message, setMessage] = useState('');
 
-    const toggleUser = (index) => {
-        const token = auth[index]
-        if (creusers.includes(token)) {
-            setCreusers(creusers.filter(t => t !== token))
-        } else {
-            setCreusers([...creusers, token])
-        }
-        console.log(creusers)
+  useEffect(() => {
+    getfriends();
+  }, []);
+
+  const toggleUser = (index) => {
+    const token = auth[index];
+    setCreusers((prev) =>
+      prev.includes(token) ? prev.filter((t) => t !== token) : [...prev, token]
+    );
+  };
+
+  const handleCreate = () => {
+    if (!groupName.trim()) {
+      setMessage('Group name cannot be empty ❌');
+      setTimeout(() => setMessage(''), 3000);
+      return;
     }
 
+    create(groupName.trim(), creusers);
+    setMessage('Group created successfully ✅');
+    setGroupName('');
+    setCreusers([currentUser]);
+    setTimeout(() => setMessage(''), 3000);
+  };
 
-    const handleCreate = () => {
-        // Here you could add logic to create the group with groupName and creusers
-        setMessage("Group created successfully")
-        setTimeout(()=>{setMessage("")},3000)
-        create(groupName , creusers)
-    }
+  return (
+    <div className="container py-5">
+      <h1 className="text-center mb-5 fw-bold text-primary animate-title">Create a Group</h1>
 
-    return (
-        <div className="container py-5">
-            <h1 className="text-center mb-5 fw-semibold text-dark animate-title">Create Group</h1>
-             {message && (
-                <div className="alert alert-success text-center" role="alert">
-                    {message}
-                </div>
-            )}
-            <div className="row justify-content-center g-4">
-                <div className="mb-3">
-                    <label htmlFor="exampleFormControlInput1" className="form-label">Group Name</label>
-                    <input 
-                        type="text" 
-                        className="form-control" 
-                        id="exampleFormControlInput1"
-                        value={groupName}
-                        onChange={(e) => setGroupName(e.target.value)}
-                    />
-                </div>
-                {friends.map((ele, index) => (
-                    <div key={index} className="col-12 col-md-6 col-lg-4">
-                        <div className="card border-0 shadow-sm rounded-3 overflow-hidden">
-                            <div className="card-body p-4 d-flex align-items-center justify-content-between">
-                                <div className="d-flex align-items-center">
-                                    <img src={ele.image} alt="user" style={{ width: "40px", height: "40px", borderRadius: "50%", objectFit: "cover", marginRight: "10px" }} />
-                                    <h5 className="card-title mb-0 fw-medium text-dark">
-                                        {ele.name.charAt(0).toUpperCase() + ele.name.slice(1)}
-                                    </h5>
-                                </div>
-                                <button 
-                                    onClick={() => toggleUser(index)}
-                                    className="btn btn-sm"
-                                >
-                                    {creusers.includes(auth[index]) ? 'Remove' : 'Add'}
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-                <div className="col-12 text-center mt-4">
-                    <button 
-                        onClick={handleCreate}
-                        className="btn btn-primary"
-                        disabled={!groupName || creusers.length === 0}
-                    >
-                        Create Group
-                        
-                    </button>
-                </div>
-            </div>
+      {message && (
+        <div className="alert alert-info text-center shadow-sm fw-medium">{message}</div>
+      )}
+
+      <div className="row justify-content-center mb-4">
+        <div className="col-12 col-md-8">
+          <label htmlFor="groupName" className="form-label fw-medium text-dark">
+            Group Name
+          </label>
+          <input
+            type="text"
+            className="form-control shadow-sm"
+            id="groupName"
+            value={groupName}
+            onChange={(e) => setGroupName(e.target.value)}
+            placeholder="Enter group name"
+          />
         </div>
-    )
+      </div>
+
+      <div className="row justify-content-center g-4">
+        {friends.map((user, index) => (
+          <div key={index} className="col-12 col-md-6 col-lg-4">
+            <div className="card border-0 shadow-sm rounded-4 h-100">
+              <div className="card-body d-flex align-items-center justify-content-between p-3">
+                <div className="d-flex align-items-center">
+                  <img
+                    src={user.image}
+                    alt="user"
+                    className="rounded-circle"
+                    style={{
+                      width: '44px',
+                      height: '44px',
+                      objectFit: 'cover',
+                      marginRight: '15px',
+                      border: '2px solid #0d6efd',
+                    }}
+                  />
+                  <h5 className="mb-0 fw-semibold text-dark">
+                    {user.name.charAt(0).toUpperCase() + user.name.slice(1)}
+                  </h5>
+                </div>
+                <button
+                  onClick={() => toggleUser(index)}
+                  className={`btn btn-sm px-3 ${
+                    creusers.includes(auth[index])
+                      ? 'btn-outline-danger'
+                      : 'btn-outline-success'
+                  }`}
+                >
+                  {creusers.includes(auth[index]) ? 'Remove' : 'Add'}
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="text-center mt-5">
+        <button
+          onClick={handleCreate}
+          className="btn btn-primary px-4 py-2 fw-semibold rounded-pill shadow-sm"
+          disabled={!groupName.trim() || creusers.length < 2}
+        >
+          Create Group
+        </button>
+        <p className="text-muted mt-2" style={{ fontSize: '0.9rem' }}>
+          Select at least one friend to create a group
+        </p>
+      </div>
+    </div>
+  );
 }
 
-export default Create
+export default Create;
