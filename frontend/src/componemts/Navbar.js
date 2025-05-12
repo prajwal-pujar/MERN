@@ -49,7 +49,7 @@ function Navbar() {
               height="35"
               style={{ objectFit: 'cover' }}
             />
-            <span className="ms-2 fw-medium text-dark">{username}</span>
+            <span className="ms-2 fw-medium text-dark">{username.toUpperCase()}</span>
           </div>
         )}
 
