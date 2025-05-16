@@ -40,13 +40,16 @@ app.get('/', (req, res) => {
 });
 
 // Socket.IO handlers
-const users = {}
 io.on('connection', (socket) => {
-    socket.on('new user joined' , (name)=>{
-      users[socket.id] = name;
-      socket.broadcast.emit('user joined' + name)
-    })
+  socket.on('join-room', (room) => {
+    socket.join(room);
+  });
+
+  socket.on('send-message', ({ from, to, text }) => {
+    io.to(to).emit('receive-message', { name: from, text });
+  });
 });
+
 
 // Start server
 const PORT = process.env.PORT || 5000;
