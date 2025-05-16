@@ -8,9 +8,9 @@ const cors = require('cors');
 connect();
 
 const corsOptions = {
-origin: '[https://mern-6gc8-prajwal-pujars-projects.vercel.app](https://mern-6gc8-prajwal-pujars-projects.vercel.app)',
-methods: \['GET', 'POST', 'PUT', 'DELETE'],
-allowedHeaders: \['Content-Type', 'auth-token', 'send-token', 'rec-token'],
+origin: 'https://mern-6gc8-prajwal-pujars-projects.vercel.app',
+methods: ['GET', 'POST', 'PUT', 'DELETE'],
+allowedHeaders: ['Content-Type', 'auth-token', 'send-token', 'rec-token'],
 };
 
 app.use(cors(corsOptions));
