@@ -58,24 +58,25 @@ router.post('/send' , [
     }
 })
 
-router.get('/fetch'  , fetchmuser , async(req , res)=>{
-    try{
-        const user1 = req.user1
-        const user2 = req.user2
+router.get('/fetch', fetchmuser, async (req, res) => {
+    try {
+        const { user1, user2 } = req;
         const messages = await livemssg.find({
             $or: [
                 { senderid: user1, receiveid: user2 },
                 { senderid: user2, receiveid: user1 }
             ]
-        }).sort({ timestamp: 1 }).select("-senderid -receiveid -_id"); // Sort messages by timestamp
+        })
+        .sort({ timestamp: 1 })
+        .select("message timestamp")
+        .lean();
 
         res.json(messages);
-    }
-    catch(err){
-        console.log(err)
+    } catch (err) {
+        console.error(err);
         res.status(500).json({ error: "Internal Server Error" });
     }
-})
+});
 
 // Send Friend Request
 router.post("/req", fetchmuser, async (req, res) => {
