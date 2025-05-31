@@ -54,7 +54,7 @@ const About = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-indigo-700 text-white py-4 text-center">
+      <footer className="bg-indigo-700 text-black py-4 text-center">
         <p className="text-sm fade-in">© 2025 ChatSphere. Built with ❤️ for the world.</p>
       </footer>
 
